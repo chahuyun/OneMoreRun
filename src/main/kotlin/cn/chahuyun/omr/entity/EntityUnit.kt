@@ -1,6 +1,8 @@
 package cn.chahuyun.omr.entity
 //EntityUnit.kt
 
+import cn.chahuyun.omr.effect.Effect
+
 
 /**
  * 实体单位
