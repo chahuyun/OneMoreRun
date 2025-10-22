@@ -1,5 +1,5 @@
 package cn.chahuyun.omr.game
-//Damage.kt
+//Impact.kt
 
 import cn.chahuyun.omr.entity.GameEntity
 
@@ -24,13 +24,13 @@ enum class DamageType {
 }
 
 /**
- * 伤害
+ * 数值影响 / 伤害或治疗
  */
-data class Damage(
+data class Impact(
     /**
-     * 基础伤害
+     * 基础数值
      */
-    val baseDamage: Int,
+    val baseValue: Int,
     /**
      * 伤害来源
      */
@@ -48,14 +48,14 @@ data class Damage(
      */
     val damageType: DamageType,
     /**
-     * 最终伤害
+     * 最终数值
      */
-    var finalDamage: Int = 0
+    var finalValue: Int = 0
 ) {
     init {
         /**
-         * 初始伤害
+         * 初始数值
          */
-        finalDamage = baseDamage
+        finalValue = baseValue
     }
 }

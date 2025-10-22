@@ -3,6 +3,7 @@ package cn.chahuyun.omr.effect
 
 
 import cn.chahuyun.omr.entity.GameEntity
+import cn.chahuyun.omr.game.GameProcess
 
 //Effect.kt
 
@@ -75,8 +76,11 @@ abstract class Effect(
      * 计算优先级
      */
     val priority: Int,
-
-    ) {
+    /**
+     * 是否造成数值影响（如伤害或治疗）
+     */
+    val onNumericImpact: Boolean = false,
+) {
     /**
      * 数值
      */
@@ -85,17 +89,22 @@ abstract class Effect(
     /**
      * 添加时效果
      */
-    open fun onApply(entity: GameEntity) {}
+    open fun onApply(entity: GameEntity, process: GameProcess) {}
 
     /**
      * 删除时效果
      */
-    open fun onRemove(entity: GameEntity) {}
+    open fun onRemove(entity: GameEntity, process: GameProcess) {}
 
     /**
      * 计算时效果
      */
-    open fun onTurn(entity: GameEntity) {}
+    open fun onTurn(entity: GameEntity, process: GameProcess) {}
+
+    /**
+     * 造成伤害或治疗
+     */
+    open fun applyImpact(entity: GameEntity, process: GameProcess) {}
 
     /**
      * 遇见唯一效果的处理方式
