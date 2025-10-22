@@ -63,8 +63,42 @@ data class UserEquipment(
     var feet: String? = null,
     var weapons: String? = null,
     var necklace: String? = null,
-    @Column(name = "left_ring") var leftRing: String? = null,
-    @Column(name = "right_ring") var rightRing: String? = null,
+     var ring: String? = null,
+)
+
+/**
+ * 用户技能栏
+ */
+@Entity
+@Table(name = "user_skills")
+data class UserSkills(
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long? = null,
+
+    /**
+     * 职业技能（Class Skills）
+     */
+    @Column(name = "class_skill")
+    var classSkill: String? = null,
+
+    //
+    /**
+     * 主技能（Primary Skill）
+     */
+    @Column(name = "primary_skill")
+    var primarySkill: String? = null,
+
+    /**
+     * 副技能（Secondary Skill）
+     */
+    @Column(name = "secondary_skill")
+    var secondarySkill: String? = null,
+
+    /**
+     * 被动技能（Passive Skill）
+     */
+    @Column(name = "passive_skill")
+    var passiveSkill: String? = null
 )
 
 /**
