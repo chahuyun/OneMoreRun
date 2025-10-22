@@ -1,4 +1,6 @@
 package cn.chahuyun.omr.game
+//Equipment.kt
+
 
 import cn.chahuyun.omr.effect.Effect
 
@@ -42,14 +44,9 @@ enum class EquipmentType {
     NECKLACE,
 
     /**
-     * 戒指(左)
+     * 戒指
      */
-    LEFT_RING,
-
-    /**
-     * 戒指(右)
-     */
-    RIGHT_RING
+    RING,
 }
 
 /**
@@ -73,10 +70,21 @@ abstract class Equipment(
      */
     val type: EquipmentType,
     /**
+     * 套装
+     */
+    val suit: Suit? = null,
+    /**
      * 是否特殊效果
      */
-    val special: Boolean = false
-) {
+    open val special: Boolean = false
+) : Describable {
+
+    /**
+     * 动态生成显示名称
+     */
+    val displayName: String
+        get() = suit?.let { "${it.prefix}$name" } ?: name
+
     /**
      * 装备特殊效果
      */
@@ -86,16 +94,55 @@ abstract class Equipment(
      * 装备的属性
      */
     abstract val propertyList: List<Property>
+
 }
 
 /**
- * 套装
+ * 套装系统
  */
 abstract class Suit(
-    val equipmentCodes:List<String>,
-    val equipments: List<Equipment>
-){
-    init {
+    /**
+     * 套装名称
+     */
+    val name: String,
+    /**
+     * 前缀
+     */
+    val prefix: String,
+    /**
+     * 最低生效件数
+     */
+    val piecesRequired: Int,
+    /**
+     * 件数对应的效果
+     */
+    private val effectsMap: Map<Int, List<Effect>>,
+    /**
+     * 件数对应的属性
+     */
+    private val propertyMap: Map<Int, List<Property>>
+) : Describable {
 
+    /**
+     * 获取当前装备数量对应的套装效果
+     * @param pieceCount 当前装备数量
+     * @return 该数量下的套装效果（可能为空）
+     */
+    fun getEffects(pieceCount: Int): List<Effect> {
+        // 找到最大满足件数的效果（如5件套比3件套效果更强）
+        return effectsMap.entries.filter { pieceCount >= it.key }.maxByOrNull { it.key } // 优先选择更高件数的效果
+            ?.value ?: emptyList()
+    }
+
+
+    /**
+     * 获取当前装备数量对应的套装效果
+     * @param pieceCount 当前装备数量
+     * @return 该数量下的套装效果（可能为空）
+     */
+    fun getProperty(pieceCount: Int): List<Property> {
+        // 找到最大满足件数的效果（如5件套比3件套效果更强）
+        return propertyMap.entries.filter { pieceCount >= it.key }.maxByOrNull { it.key } // 优先选择更高件数的效果
+            ?.value ?: emptyList()
     }
 }
