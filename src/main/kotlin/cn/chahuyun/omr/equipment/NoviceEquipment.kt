@@ -1,0 +1,128 @@
+package cn.chahuyun.omr.equipment
+//NoviceEquipment.kt
+
+
+import cn.chahuyun.omr.effect.Effect
+import cn.chahuyun.omr.game.*
+import kotlin.random.Random.Default.nextInt
+
+/**
+ * 新手装备管理
+ */
+object NoviceEquipment {
+    fun init() {
+        val noviceEquipment = NoviceHelmet()
+        EquipmentFactory.register(noviceEquipment.code, noviceEquipment)
+
+        val noviceRing = NoviceRing()
+        EquipmentFactory.register(noviceRing.code, noviceRing)
+    }
+}
+
+/**
+ * 新手套装
+ */
+class NoviceSuit() : Suit(
+    "新手套装", "[新手]",
+    5, mapOf(),
+    mapOf(
+        5 to listOf(
+            Property(5, PropertyType.ATK),
+            Property(5, PropertyType.DEF),
+        )
+    )
+) {
+    /**
+     * 小作文描述
+     */
+    override val smallComposition: String = """
+        新手套装
+        
+        保护你能完整的出生
+        
+        套装装备:
+        头盔
+        胸甲
+        手套
+        护腿
+        鞋子
+        
+        套装效果:
+        5 -> ATK+5 DEF+5
+    """.trimIndent()
+}
+
+/**
+ * 新手头盔
+ */
+class NoviceHelmet() : Equipment(
+    //装备code,需要唯一
+    "novice-helmet",
+    //装备名称,如果有套装,在调用displayName返回的时候会加上套装的前缀
+    "头盔",
+    //简洁描述
+    "村好盔",
+    //类型
+    EquipmentType.HEAD,
+    //所属套装
+    NoviceSuit(),
+    //是否是特殊装备,当这个属性为true的时候,在读取装备的时候会尝试获取装备的效果,默认为false
+    false
+) {
+    /**
+     * 装备特殊效果
+     */
+    override val effects: List<Effect> = listOf()
+
+    /**
+     * 装备的属性
+     */
+    override val propertyList: List<Property> = listOf(Property(1, PropertyType.DEF))
+
+    /**
+     * 小作文描述
+     */
+    override val smallComposition: String
+        get() = """
+            $displayName
+            品质:普通
+            你出生他就戴在你的头上,你也不知道怎么来的!
+            
+            DEF+1
+            
+            --- 来自 moyuyanli 的邪恶设计
+        """.trimIndent()
+}
+
+class NoviceRing() : Equipment(
+    "novice-ring", "新手戒指",
+    "一个无光泽的铁戒指",
+    EquipmentType.RING
+) {
+
+    override val effects: List<Effect> = listOf()
+
+    /**
+     * 装备的属性
+     * 随机属性的实现方式
+     */
+    override val propertyList: List<Property> = listOf(
+        Property(nextInt(3, 6), PropertyType.ATK),
+        Property(nextInt(3, 6), PropertyType.DEF),
+    ).shuffled().take(1)
+
+    /**
+     * 小作文描述
+     */
+    override val smallComposition: String = """
+        $displayName
+        品质:优秀
+        
+        不可多得的好东西
+        
+        ATk or DEF + 3~5
+        
+        --- 来自 moyuyanli 的祝福
+    """.trimIndent()
+
+}

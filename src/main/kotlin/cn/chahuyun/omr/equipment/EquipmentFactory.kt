@@ -25,5 +25,4 @@ object EquipmentFactory {
         }
         equipmentMap[code] = equipment
     }
-
 }
