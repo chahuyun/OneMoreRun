@@ -3,6 +3,7 @@ package cn.chahuyun.omr.effect
 
 
 import cn.chahuyun.omr.entity.GameEntity
+import cn.chahuyun.omr.game.Describable
 import cn.chahuyun.omr.game.GameProcess
 
 //Effect.kt
@@ -80,7 +81,7 @@ abstract class Effect(
      * 是否造成数值影响（如伤害或治疗）
      */
     val onNumericImpact: Boolean = false,
-) {
+) : Describable {
     /**
      * 数值
      */
