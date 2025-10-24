@@ -4,7 +4,6 @@ package cn.chahuyun.omr.equipment
 
 import cn.chahuyun.omr.effect.Effect
 import cn.chahuyun.omr.game.*
-import kotlin.random.Random.Default.nextInt
 
 /**
  * 新手装备管理
@@ -106,10 +105,11 @@ class NoviceRing() : Equipment(
      * 装备的属性
      * 随机属性的实现方式
      */
-    override val propertyList: List<Property> = listOf(
-        Property(nextInt(3, 6), PropertyType.ATK),
-        Property(nextInt(3, 6), PropertyType.DEF),
-    ).shuffled().take(1)
+    override val propertyList: List<Property> =
+        Property.random(3, 5, 1, PropertyType.ATK, PropertyType.DEF)
+    //或者写法
+    //listOf(Property.random(3, 5, PropertyType.ATK, PropertyType.DEF))
+
 
     /**
      * 小作文描述

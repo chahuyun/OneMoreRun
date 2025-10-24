@@ -76,7 +76,11 @@ abstract class Equipment(
     /**
      * 是否特殊效果
      */
-    open val special: Boolean = false
+    open val special: Boolean = false,
+    /**
+     * 是否随机属性
+     */
+    open val random: Boolean = false,
 ) : Describable {
 
     /**
@@ -94,6 +98,24 @@ abstract class Equipment(
      * 装备的属性
      */
     abstract val propertyList: List<Property>
+
+    /**
+     * 随机属性方法，只有在random为true时生效
+     */
+    open fun generateRandomProperties(): List<Property> = emptyList()
+
+    /**
+     * 随机效果方法，只有在random为true时生效
+     */
+    open fun generateRandomEffects(): List<Effect> = emptyList()
+
+    /**
+     * 新装备生成
+     */
+    fun generateShortId(): String {
+
+        return
+    }
 
 }
 
@@ -120,7 +142,7 @@ abstract class Suit(
     /**
      * 件数对应的属性
      */
-    private val propertyMap: Map<Int, List<Property>>
+    private val propertyMap: Map<Int, List<Property>>,
 ) : Describable {
 
     /**
