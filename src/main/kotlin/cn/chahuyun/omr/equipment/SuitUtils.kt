@@ -1,7 +1,8 @@
 package cn.chahuyun.omr.game
 
-import cn.chahuyun.omr.entity.UserEquipment
+import cn.chahuyun.omr.entity.data.UserEquipment
 import cn.chahuyun.omr.equipment.EquipmentFactory
+import cn.chahuyun.omr.equipment.Suit
 
 object SuitUtils {
     /**

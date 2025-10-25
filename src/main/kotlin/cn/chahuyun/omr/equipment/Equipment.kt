@@ -1,8 +1,12 @@
-package cn.chahuyun.omr.game
+package cn.chahuyun.omr.equipment
 //Equipment.kt
 
 
 import cn.chahuyun.omr.effect.Effect
+import cn.chahuyun.omr.game.Describable
+import cn.chahuyun.omr.game.Property
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.encodeToString
 
 /**
  * 装备类型
@@ -52,6 +56,7 @@ enum class EquipmentType {
 /**
  * 装备
  */
+@Serializable
 abstract class Equipment(
     /**
      * 装备code
@@ -84,6 +89,11 @@ abstract class Equipment(
 ) : Describable {
 
     /**
+     * 装备类型标识 - 用于序列化鉴别
+     */
+    val equipmentType: String = this::class.simpleName ?: this::class.java.simpleName
+
+    /**
      * 动态生成显示名称
      */
     val displayName: String
@@ -92,36 +102,69 @@ abstract class Equipment(
     /**
      * 装备特殊效果
      */
-    abstract val effects: List<Effect>
+    val effects: List<Effect> by lazy { generateEffects.invoke() }
 
     /**
      * 装备的属性
      */
-    abstract val propertyList: List<Property>
+    val propertyList: List<Property> by lazy { generateProperties.invoke() }
 
     /**
-     * 随机属性方法，只有在random为true时生效
+     * 生成属性方法
      */
-    open fun generateRandomProperties(): List<Property> = emptyList()
+    abstract val generateEffects: () -> List<Effect>
 
     /**
-     * 随机效果方法，只有在random为true时生效
+     *  生成效果方法
      */
-    open fun generateRandomEffects(): List<Effect> = emptyList()
+    abstract val generateProperties: () -> List<Property>
 
-    /**
-     * 新装备生成
-     */
-    fun generateShortId(): String {
 
-        return
+    internal fun setEffects(effects: List<Effect>) {
+        try {
+            val field = this.javaClass.getDeclaredField("effects")
+            field.isAccessible = true
+            field.set(this, effects)
+        } catch (e: Exception) {
+            throw RuntimeException("Failed to set effects", e)
+        }
     }
 
+    internal fun setPropertyList(propertyList: List<Property>) {
+        try {
+            val field = this.javaClass.getDeclaredField("propertyList")
+            field.isAccessible = true
+            field.set(this, propertyList)
+        } catch (e: Exception) {
+            throw RuntimeException("Failed to set propertyList", e)
+        }
+    }
+
+    internal fun setCode(code: String) {
+        try {
+            val field = this.javaClass.getDeclaredField("code")
+            field.isAccessible = true
+            field.set(this, code)
+        } catch (e: Exception) {
+            throw RuntimeException("Failed to set code", e)
+        }
+    }
+
+
+    /**
+     * 优雅的克隆方法
+     */
+    internal inline fun <reified T : Equipment> clone(): T {
+        return JsonConfig.jsonFormat.decodeFromString<T>(
+            JsonConfig.jsonFormat.encodeToString(this)
+        )
+    }
 }
 
 /**
  * 套装系统
  */
+@Serializable
 abstract class Suit(
     /**
      * 套装名称
@@ -168,3 +211,4 @@ abstract class Suit(
             ?.value ?: emptyList()
     }
 }
+

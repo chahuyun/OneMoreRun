@@ -3,7 +3,9 @@ package cn.chahuyun.omr.equipment
 
 
 import cn.chahuyun.omr.effect.Effect
-import cn.chahuyun.omr.game.*
+import cn.chahuyun.omr.equipment.NoviceEquipment.NOVICE_HELMET
+import cn.chahuyun.omr.game.Property
+import cn.chahuyun.omr.game.PropertyType
 
 /**
  * 新手装备管理
@@ -11,11 +13,17 @@ import cn.chahuyun.omr.game.*
 object NoviceEquipment {
     fun init() {
         val noviceEquipment = NoviceHelmet()
-        EquipmentFactory.register(noviceEquipment.code, noviceEquipment)
+        EquipmentFactory.register(NOVICE_HELMET, noviceEquipment)
 
         val noviceRing = NoviceRing()
         EquipmentFactory.register(noviceRing.code, noviceRing)
     }
+
+    /**
+     * 新手头盔
+     */
+    const val NOVICE_HELMET = "novice-helmet"
+
 }
 
 /**
@@ -54,29 +62,25 @@ class NoviceSuit() : Suit(
 /**
  * 新手头盔
  */
+@SerializeEquipment
+@EquipmentDiscriminator(NOVICE_HELMET)
 class NoviceHelmet() : Equipment(
     //装备code,需要唯一
-    "novice-helmet",
+    code = NOVICE_HELMET,
     //装备名称,如果有套装,在调用displayName返回的时候会加上套装的前缀
-    "头盔",
+    name = "头盔",
     //简洁描述
-    "村好盔",
+    description = "村好盔",
     //类型
-    EquipmentType.HEAD,
+    type = EquipmentType.HEAD,
     //所属套装
-    NoviceSuit(),
+    suit = NoviceSuit(),
     //是否是特殊装备,当这个属性为true的时候,在读取装备的时候会尝试获取装备的效果,默认为false
-    false
+    special = false,
 ) {
-    /**
-     * 装备特殊效果
-     */
-    override val effects: List<Effect> = listOf()
 
-    /**
-     * 装备的属性
-     */
-    override val propertyList: List<Property> = listOf(Property(1, PropertyType.DEF))
+    override val generateEffects: () -> List<Effect> = { emptyList() }
+    override val generateProperties: () -> List<Property> = { listOf(Property(1, PropertyType.DEF)) }
 
     /**
      * 小作文描述
@@ -96,20 +100,24 @@ class NoviceHelmet() : Equipment(
 class NoviceRing() : Equipment(
     "novice-ring", "新手戒指",
     "一个无光泽的铁戒指",
-    EquipmentType.RING
+    EquipmentType.RING,
+    random = true
 ) {
 
-    override val effects: List<Effect> = listOf()
+    override val generateEffects: () -> List<Effect> = {
+        emptyList()
+    }
 
     /**
      * 装备的属性
      * 随机属性的实现方式
+     * 需要 random = true 的属性支持
      */
-    override val propertyList: List<Property> =
+    override val generateProperties: () -> List<Property> = {
         Property.random(3, 5, 1, PropertyType.ATK, PropertyType.DEF)
-    //或者写法
-    //listOf(Property.random(3, 5, PropertyType.ATK, PropertyType.DEF))
-
+        //或者写法
+        //listOf(Property.random(3, 5, PropertyType.ATK, PropertyType.DEF))
+    }
 
     /**
      * 小作文描述

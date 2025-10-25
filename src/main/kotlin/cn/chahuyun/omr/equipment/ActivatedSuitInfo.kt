@@ -1,6 +1,7 @@
 package cn.chahuyun.omr.game
 
 import cn.chahuyun.omr.effect.Effect
+import cn.chahuyun.omr.equipment.Suit
 
 /**
  * 已激活套装的详细信息
