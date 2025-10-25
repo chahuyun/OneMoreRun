@@ -5,6 +5,7 @@ package cn.chahuyun.omr.effect
 import cn.chahuyun.omr.entity.GameEntity
 import cn.chahuyun.omr.game.Describable
 import cn.chahuyun.omr.game.GameProcess
+import kotlinx.serialization.Serializable
 
 //Effect.kt
 
@@ -64,6 +65,7 @@ enum class Trigger {
 /**
  * 效果
  */
+@Serializable
 abstract class Effect(
     /**
      * 效果名称
