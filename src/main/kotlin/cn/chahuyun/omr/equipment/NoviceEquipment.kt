@@ -13,7 +13,8 @@ import cn.chahuyun.omr.game.PropertyType
  * 新手装备管理
  */
 object NoviceEquipment {
-    fun init() {
+    //初始化加载
+    init {
         val noviceEquipment = NoviceHelmet()
         EquipmentFactory.register(NOVICE_HELMET, noviceEquipment)
 

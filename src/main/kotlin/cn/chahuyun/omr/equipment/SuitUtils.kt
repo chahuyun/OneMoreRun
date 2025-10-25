@@ -13,14 +13,14 @@ object SuitUtils {
     fun getActivatedSuits(userEquipment: UserEquipment): List<ActivatedSuitInfo> {
         // 1. 收集所有装备槽位的装备
         val allEquipment = listOfNotNull(
-            userEquipment.head?.let { EquipmentFactory.get(it) },
-            userEquipment.chest?.let { EquipmentFactory.get(it) },
-            userEquipment.hands?.let { EquipmentFactory.get(it) },
-            userEquipment.legs?.let { EquipmentFactory.get(it) },
-            userEquipment.feet?.let { EquipmentFactory.get(it) },
-            userEquipment.weapons?.let { EquipmentFactory.get(it) },
-            userEquipment.necklace?.let { EquipmentFactory.get(it) },
-            userEquipment.ring?.let { EquipmentFactory.get(it) },
+            userEquipment.head?.let { EquipmentFactory.take(it) },
+            userEquipment.chest?.let { EquipmentFactory.take(it) },
+            userEquipment.hands?.let { EquipmentFactory.take(it) },
+            userEquipment.legs?.let { EquipmentFactory.take(it) },
+            userEquipment.feet?.let { EquipmentFactory.take(it) },
+            userEquipment.weapons?.let { EquipmentFactory.take(it) },
+            userEquipment.necklace?.let { EquipmentFactory.take(it) },
+            userEquipment.ring?.let { EquipmentFactory.take(it) },
         )
 
         // 2. 统计每个套装的装备数量和具体装备code

@@ -119,6 +119,14 @@ abstract class Equipment(
      */
     abstract val generateProperties: () -> List<Property>
 
+    /**
+     * 优雅的克隆方法
+     */
+    internal inline fun <reified T : Equipment> clone(): T {
+        return JsonConfig.jsonFormat.decodeFromString<T>(
+            JsonConfig.jsonFormat.encodeToString(this)
+        )
+    }
 
     internal fun setEffects(effects: List<Effect>) {
         try {
@@ -148,16 +156,6 @@ abstract class Equipment(
         } catch (e: Exception) {
             throw RuntimeException("Failed to set code", e)
         }
-    }
-
-
-    /**
-     * 优雅的克隆方法
-     */
-    internal inline fun <reified T : Equipment> clone(): T {
-        return JsonConfig.jsonFormat.decodeFromString<T>(
-            JsonConfig.jsonFormat.encodeToString(this)
-        )
     }
 }
 

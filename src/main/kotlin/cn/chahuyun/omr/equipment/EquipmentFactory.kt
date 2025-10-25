@@ -9,7 +9,7 @@ import cn.chahuyun.omr.OneMoreRun
 import cn.chahuyun.omr.ShortIdGenerator
 import cn.chahuyun.omr.effect.Effect
 import cn.chahuyun.omr.entity.data.EquipmentRandomData
-import cn.chahuyun.omr.equipment.EquipmentFactory.talk
+import cn.chahuyun.omr.equipment.EquipmentFactory.take
 import cn.chahuyun.omr.game.Property
 import kotlin.reflect.KClass
 
@@ -37,7 +37,7 @@ object EquipmentFactory {
     }
 
     /**
-     * 获取装备原型,需要获取实际装备请使用 [talk]
+     * 获取装备原型,需要获取实际装备请使用 [take]
      */
     fun get(code: String): Equipment {
         return equipmentMap[code] ?: throw EquipmentException("对应code装备未注册!")
@@ -46,7 +46,7 @@ object EquipmentFactory {
     /**
      * 获取装备,没有就创建,有就返回
      */
-    fun talk(code: String): Equipment {
+    fun take(code: String): Equipment {
         if (randomEquipmentMap.containsKey(code)) {
             return randomEquipmentMap[code] ?: throw EquipmentException("该随机装备未反序列化")
         }
