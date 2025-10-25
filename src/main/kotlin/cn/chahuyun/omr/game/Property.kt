@@ -1,7 +1,9 @@
 package cn.chahuyun.omr.game
 
+import kotlinx.serialization.Serializable
 import kotlin.random.Random
 
+@Serializable
 enum class PropertyType {
     HP, ATK, DEF,
 
@@ -19,7 +21,8 @@ enum class PropertyType {
 /**
  * 某项数值
  */
-class Property(
+@Serializable
+data class Property(
     /**
      * 值,暴击爆伤为%
      */

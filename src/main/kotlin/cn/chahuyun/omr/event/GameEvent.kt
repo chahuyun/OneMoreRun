@@ -1,8 +1,7 @@
 package cn.chahuyun.omr.event
 
-import cn.chahuyun.omr.entity.Dungeon
-import cn.chahuyun.omr.entity.User
-import net.mamoe.mirai.event.AbstractEvent
+import cn.chahuyun.omr.entity.data.Dungeon
+import cn.chahuyun.omr.entity.data.User
 
 interface GameEvent{
 
