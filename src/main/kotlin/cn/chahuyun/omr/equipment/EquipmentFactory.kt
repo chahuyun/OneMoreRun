@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package cn.chahuyun.omr.equipment
 //EquipmentFactory.kt
 
@@ -80,7 +82,7 @@ object EquipmentFactory {
         )
     }
 
-    // ✅ 反序列化：从 Metadata 恢复装备
+    // 反序列化：从 Metadata 恢复装备
     fun deserialize(metadata: EquipmentMetadata): Equipment {
         //从注册表获取基础装备
         val base = get(metadata.code)

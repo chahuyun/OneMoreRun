@@ -1,8 +1,8 @@
-package cn.chahuyun.omr.game
+@file:Suppress("unused")
+
+package cn.chahuyun.omr.equipment
 
 import cn.chahuyun.omr.entity.data.UserEquipment
-import cn.chahuyun.omr.equipment.EquipmentFactory
-import cn.chahuyun.omr.equipment.Suit
 
 object SuitUtils {
     /**

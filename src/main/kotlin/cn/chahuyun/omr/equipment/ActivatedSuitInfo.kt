@@ -1,7 +1,9 @@
-package cn.chahuyun.omr.game
+@file:Suppress("unused")
+
+package cn.chahuyun.omr.equipment
 
 import cn.chahuyun.omr.effect.Effect
-import cn.chahuyun.omr.equipment.Suit
+import cn.chahuyun.omr.game.Property
 
 /**
  * 已激活套装的详细信息
