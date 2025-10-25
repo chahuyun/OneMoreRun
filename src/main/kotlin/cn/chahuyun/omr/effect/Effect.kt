@@ -50,7 +50,7 @@ enum class Trigger {
      * 伤害计算时
      */
     ON_DAMAGE_CALCULATE,
-
+    //todo 这里是不是应该还有一个时刻,用于给类似中毒效果使用
     /**
      * 单体回合结算时
      */
@@ -64,21 +64,34 @@ enum class Trigger {
 
 /**
  * 效果
+ *
  */
 @Serializable
 abstract class Effect(
+    /**
+     * 效果code
+     */
+    val code: String,
     /**
      * 效果名称
      */
     val name: String,
     /**
+     * 效果类型
+     */
+    val type: EffectType,
+    /**
+     * 触发时机
+     */
+    val trigger: Trigger,
+    /**
      * 剩余回合
      */
-    val duration: Int,
+    val duration: Int = 0,
     /**
      * 计算优先级
      */
-    val priority: Int,
+    val priority: Int = 100,
     /**
      * 是否造成数值影响（如伤害或治疗）
      */
@@ -87,7 +100,8 @@ abstract class Effect(
     /**
      * 数值
      */
-    abstract val value: Float
+    abstract var value: Float
+        internal set
 
     /**
      * 添加时效果
