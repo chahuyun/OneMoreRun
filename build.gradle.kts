@@ -16,7 +16,7 @@ repositories {
 
 dependencies {
     implementation("cn.chahuyun:hibernate-plus:1.0.17")
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.20.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
 }
 
 // hibernate 6 和 HikariCP 5 需要 jdk11
