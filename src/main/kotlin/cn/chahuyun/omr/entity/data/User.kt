@@ -1,10 +1,14 @@
 @file:Suppress("JpaDataSourceORMInspection")
 
-package cn.chahuyun.omr.entity
+package cn.chahuyun.omr.entity.data
 
 import cn.chahuyun.hibernateplus.HibernateFactory
-import cn.chahuyun.omr.game.Equipment
-import jakarta.persistence.*
+import jakarta.persistence.Column
+import jakarta.persistence.Entity
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
+import jakarta.persistence.Id
+import jakarta.persistence.Table
 
 /**
  * 用户信息
@@ -63,7 +67,7 @@ data class UserEquipment(
     var feet: String? = null,
     var weapons: String? = null,
     var necklace: String? = null,
-     var ring: String? = null,
+    var ring: String? = null,
 )
 
 /**
@@ -100,36 +104,3 @@ data class UserSkills(
     @Column(name = "passive_skill")
     var passiveSkill: String? = null
 )
-
-/**
- * 称号
- */
-@Entity
-@Table(name = "omr_title")
-class TitleData(
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) val id: Long? = null,
-    @Column(nullable = false) val name: String,
-)
-
-/**
- * 用户多余装备信息
- */
-@Entity
-@Table(name = "omr_equipment_backup")
-data class EquipmentData(
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) val id: Long? = null,
-    var num: Int = 0,
-    @Convert(converter = StringListConverter::class) val codes: MutableList<String>
-) {
-    fun addEquipment(equipment: Equipment) {
-        codes.add(equipment.code)
-        num = codes.size
-    }
-
-    init {
-        num = codes.size
-    }
-}
-
-
-class Dungeon() {}
