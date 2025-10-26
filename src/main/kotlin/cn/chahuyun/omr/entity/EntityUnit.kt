@@ -2,6 +2,7 @@ package cn.chahuyun.omr.entity
 //EntityUnit.kt
 
 import cn.chahuyun.omr.effect.Effect
+import cn.chahuyun.omr.game.Impact
 
 
 /**
@@ -76,6 +77,16 @@ abstract class GameEntity : EntityUnit {
 
     // 当前应用的所有效果
     val effects = mutableListOf<Effect>()
+
+    /**
+     * 造成的伤害
+     */
+    val damageDealt = mutableListOf<Impact>()
+
+    /**
+     * 受到的伤害
+     */
+    val damageTaken = mutableListOf<Impact>()
 }
 
 /**

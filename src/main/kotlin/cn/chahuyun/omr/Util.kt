@@ -71,3 +71,25 @@ object ShortIdGenerator {
         return datePart + unique3
     }
 }
+
+object RandomUtil{
+
+    /**
+     * 计算随机:1.00f%~0.00f%
+     */
+    fun random(probability: Float): Boolean{
+        val intProbability = (probability * 100).toInt()
+        return random(intProbability)
+    }
+
+    /**
+     * 计算随机:100%~0%
+     */
+    fun random(probability: Int): Boolean{
+        if (probability <= 0) return false
+        if (probability >= 100) return true
+        val randomValue = (Math.random() * 100).toInt()
+        return randomValue < probability
+    }
+
+}
