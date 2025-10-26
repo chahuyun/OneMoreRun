@@ -96,6 +96,7 @@ abstract class Effect(
      * 是否造成数值影响（如伤害或治疗）
      */
     val onNumericImpact: Boolean = false,
+    //todo 效果来源
 ) : Describable {
     /**
      * 数值

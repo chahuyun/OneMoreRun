@@ -10,7 +10,8 @@ import cn.chahuyun.omr.game.GameProcess
 
 object DodgeEffectRegistrar {
     init {
-        val ordinaryDodgeEffect = DodgeEffect("effect-dodge-D", "普通闪避", value = 0.1f)
+        //这里的code含义: effect:效果  dodge:闪避 E:装备/S:技能  10:10%概率
+        val ordinaryDodgeEffect = DodgeEffect("effect-dodge-E-10", "普通闪避", value = 0.1f)
         EffectFactory.register(ordinaryDodgeEffect)
     }
 }

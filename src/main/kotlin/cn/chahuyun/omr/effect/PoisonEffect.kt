@@ -1,14 +1,21 @@
 package cn.chahuyun.omr.effect
+
+import cn.chahuyun.omr.entity.GameEntity
+import cn.chahuyun.omr.game.GameProcess
+
 //PoisonEffect.kt
 
 object PoisonEffectRegistrar {
     init {
-
+        val poisonEffect = PoisonEffect("effect-poison-S-20", "中毒",
+            2, 120, 0.2f, "中毒了")
+        EffectFactory.register(poisonEffect)
     }
 }
 
 /**
- * 中毒buff
+ * 中毒debuff
+ * 受害者
  */
 class PoisonEffect(
     code: String, name: String,
@@ -23,4 +30,11 @@ class PoisonEffect(
     duration = duration,
     priority = priority,
     onNumericImpact = true
-)
+) {
+    /**
+     * 造成伤害或治疗
+     */
+    override fun applyImpact(entity: GameEntity, process: GameProcess) {
+
+    }
+}
