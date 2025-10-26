@@ -34,11 +34,11 @@ data class Impact(
     /**
      * 伤害来源
      */
-    val attacker: GameEntity,
+    val source: GameEntity,
     /**
      * 伤害目标
      */
-    val objectives: List<GameEntity>,
+    val targets: List<GameEntity>,
     /**
      * 是否为治疗
      */
@@ -46,7 +46,7 @@ data class Impact(
     /**
      * 伤害类型
      */
-    val damageType: DamageType,
+    var damageType: DamageType,
     /**
      * 最终数值
      */
