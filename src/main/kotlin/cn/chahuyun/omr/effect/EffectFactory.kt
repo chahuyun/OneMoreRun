@@ -1,9 +1,10 @@
 package cn.chahuyun.omr.effect
+//EffectFactory.kt
 
 import cn.chahuyun.omr.EffectException
 import cn.chahuyun.omr.OneMoreRun
 
-//EffectFactory.kt
+
 
 
 object EffectFactory {

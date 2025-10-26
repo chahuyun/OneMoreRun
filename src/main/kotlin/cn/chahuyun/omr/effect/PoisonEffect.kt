@@ -1,4 +1,5 @@
 package cn.chahuyun.omr.effect
+//PoisonEffect.kt
 
 object PoisonEffectRegistrar {
     init {
