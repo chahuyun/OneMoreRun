@@ -40,13 +40,13 @@ data class Impact(
      */
     val targets: List<GameEntity>,
     /**
-     * 是否为治疗
-     */
-    val isTreatment: Boolean,
-    /**
      * 伤害类型
      */
     var damageType: DamageType,
+    /**
+     * 是否为治疗
+     */
+    val isTreatment: Boolean = false,
     /**
      * 最终数值
      */
@@ -59,3 +59,14 @@ data class Impact(
         finalValue = baseValue
     }
 }
+
+data class ImpactConfig(
+    /**
+     * 伤害类型
+     */
+    val damageType: DamageType,
+    /**
+     * 基本伤害计算
+     */
+    val calculateBaseValue: (self: GameEntity, target: List<GameEntity>) -> Int
+)

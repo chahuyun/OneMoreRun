@@ -1,14 +1,19 @@
 package cn.chahuyun.omr.effect
 
 import cn.chahuyun.omr.entity.GameEntity
+import cn.chahuyun.omr.game.DamageType
 import cn.chahuyun.omr.game.GameProcess
+import cn.chahuyun.omr.game.Impact
+import kotlin.math.roundToInt
 
 //PoisonEffect.kt
 
 object PoisonEffectRegistrar {
     init {
-        val poisonEffect = PoisonEffect("effect-poison-S-20", "中毒",
-            2, 120, 0.2f, "中毒了")
+        val poisonEffect = PoisonEffect(
+            "effect-poison-S-20", "中毒",
+            2, 120, 0.2f, "中毒了"
+        )
         EffectFactory.register(poisonEffect)
     }
 }
@@ -35,6 +40,9 @@ class PoisonEffect(
      * 造成伤害或治疗
      */
     override fun applyImpact(entity: GameEntity, process: GameProcess) {
-
+        val f = entity.atk * value.roundToInt()
+        val impact = Impact(f, source, listOf(entity), DamageType.PHYSICAL)
+        entity.damageTaken.plus(impact)
+        process.record.add("${entity.name} 中毒了...")
     }
 }

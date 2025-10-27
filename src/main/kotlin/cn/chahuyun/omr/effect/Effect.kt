@@ -4,8 +4,10 @@ package cn.chahuyun.omr.effect
 
 import cn.chahuyun.omr.entity.GameEntity
 import cn.chahuyun.omr.game.Describable
+import cn.chahuyun.omr.game.DungeonGameEntity
 import cn.chahuyun.omr.game.GameProcess
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
 
 //Effect.kt
 
@@ -96,8 +98,13 @@ abstract class Effect(
      * 是否造成数值影响（如伤害或治疗）
      */
     val onNumericImpact: Boolean = false,
-    //todo 效果来源
+    /**
+     * 效果来源,默认为[DungeonGameEntity]
+     */
+    @Transient
+    val source: GameEntity = DungeonGameEntity()
 ) : Describable {
+
     /**
      * 数值
      */
