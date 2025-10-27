@@ -3,7 +3,6 @@ package cn.chahuyun.omr.entity
 
 import cn.chahuyun.omr.effect.Effect
 import cn.chahuyun.omr.game.Impact
-import kotlinx.serialization.Serializable
 
 
 /**

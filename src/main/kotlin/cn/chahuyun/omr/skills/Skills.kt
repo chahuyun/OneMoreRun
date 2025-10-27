@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package cn.chahuyun.omr.skills
 
 import cn.chahuyun.omr.entity.GameEntity

@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package cn.chahuyun.omr.equipment
 //Equipment.kt
 
