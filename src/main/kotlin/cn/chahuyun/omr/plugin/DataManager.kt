@@ -5,9 +5,10 @@ import cn.chahuyun.hibernateplus.HibernatePlusService
 import cn.chahuyun.omr.OneMoreRun
 import cn.chahuyun.omr.config.DataConfig
 import net.mamoe.mirai.console.plugin.jvm.JavaPlugin
+import net.mamoe.mirai.console.plugin.jvm.JvmPlugin
 
 object DataManager {
-    fun init(plugin: JavaPlugin) {
+    fun init(plugin: JvmPlugin) {
         val configuration = HibernatePlusService.createConfiguration(plugin::class.java)
 
         configuration.classLoader = plugin::class.java.classLoader
