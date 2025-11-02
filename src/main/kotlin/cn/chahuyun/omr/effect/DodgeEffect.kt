@@ -1,6 +1,7 @@
 package cn.chahuyun.omr.effect
 
 import cn.chahuyun.omr.RandomUtil
+import cn.chahuyun.omr.effect.CodesEFDodge.DODGE_EFFECT_10
 import cn.chahuyun.omr.entity.GameEntity
 import cn.chahuyun.omr.game.DamageType
 import cn.chahuyun.omr.game.GameProcess
@@ -11,9 +12,16 @@ import cn.chahuyun.omr.game.GameProcess
 object DodgeEffectRegistrar {
     init {
         //这里的code含义: effect:效果  dodge:闪避 E:装备/S:技能  10:10%概率
-        val ordinaryDodgeEffect = DodgeEffect("effect-dodge-E-10", "普通闪避", value = 0.1f)
+        val ordinaryDodgeEffect = DodgeEffect(DODGE_EFFECT_10, "普通闪避", value = 0.1f)
         EffectFactory.register(ordinaryDodgeEffect)
     }
+}
+
+/**
+ * 效果code列表EF
+ */
+object CodesEFDodge{
+    const val DODGE_EFFECT_10 = "effect-dodge-E-10"
 }
 
 /**

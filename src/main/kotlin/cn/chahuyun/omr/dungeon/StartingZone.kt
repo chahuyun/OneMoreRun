@@ -1,12 +1,12 @@
 package cn.chahuyun.omr.dungeon
 
-import cn.chahuyun.omr.dungeon.StartingZoneCodes.STARTING_ZONE
-import cn.chahuyun.omr.equipment.NoviceEquipmentCodes
+import cn.chahuyun.omr.dungeon.CodesDStartingZone.STARTING_ZONE
+import cn.chahuyun.omr.equipment.CodesEQNovice
 import cn.chahuyun.omr.game.BaseProperty
 import cn.chahuyun.omr.game.BaseProperty.Companion.create
 import cn.chahuyun.omr.game.Loot
 import cn.chahuyun.omr.game.LootEmptyPropCodes
-import cn.chahuyun.omr.skills.FireballSkillsCodes
+import cn.chahuyun.omr.skills.CodesSFireball
 
 object StartingZoneRegistrar {
     init {
@@ -21,29 +21,29 @@ object StartingZoneRegistrar {
                 3 to create(hp = 1000, atk = 25, def = 10, crit = 3, critDamage = 130),
             ),
             skills = mapOf(
-                3 to listOf(FireballSkillsCodes.FIREBALL_SKILLS_150)
+                3 to listOf(CodesSFireball.FIREBALL_SKILLS_150)
             ),
             dropProp = mapOf(
                 1 to listOf(
                     Loot(
                         weight = 100, lootProp = mapOf(
-                            100 to NoviceEquipmentCodes.NOVICE_HELMET
+                            100 to CodesEQNovice.NOVICE_HELMET
                         )
                     )
                 ),
                 2 to listOf(
                     Loot(
                         weight = 100, lootProp = mapOf(
-                            100 to NoviceEquipmentCodes.NOVICE_HELMET
+                            100 to CodesEQNovice.NOVICE_HELMET
                         )
                     )
                 ),
                 3 to listOf(
                     Loot(
                         weight = 100, lootProp = mapOf(
-                            70 to NoviceEquipmentCodes.NOVICE_HELMET,
+                            70 to CodesEQNovice.NOVICE_HELMET,
                             19 to LootEmptyPropCodes.EMPTY_PROP,
-                            11 to NoviceEquipmentCodes.NOVICE_RING
+                            11 to CodesEQNovice.NOVICE_RING
                         )
                     )
                 ),
@@ -54,7 +54,10 @@ object StartingZoneRegistrar {
     }
 }
 
-object StartingZoneCodes {
+/**
+ * 副本code列表D
+ */
+object CodesDStartingZone {
     /**
      * 新手村1
      */

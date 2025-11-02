@@ -5,7 +5,7 @@ package cn.chahuyun.omr.equipment
 
 
 import cn.chahuyun.omr.effect.Effect
-import cn.chahuyun.omr.equipment.NoviceEquipmentCodes.NOVICE_HELMET
+import cn.chahuyun.omr.equipment.CodesEQNovice.NOVICE_HELMET
 import cn.chahuyun.omr.game.Property
 import cn.chahuyun.omr.game.PropertyType
 
@@ -25,7 +25,10 @@ object NoviceEquipment {
 
 }
 
-object NoviceEquipmentCodes {
+/**
+ * 装备Code列表EQ
+ */
+object CodesEQNovice {
     /**
      * 新手头盔
      */
