@@ -2,6 +2,7 @@ package cn.chahuyun.omr.entity
 //EntityUnit.kt
 
 import cn.chahuyun.omr.effect.Effect
+import cn.chahuyun.omr.game.BaseProperty
 import cn.chahuyun.omr.game.Impact
 
 
@@ -23,11 +24,7 @@ interface EntityUnit {
 /**
  * 游戏实体
  */
-abstract class GameEntity : EntityUnit {
-    /**
-     * 初始hp
-     */
-    open val hp: Int = 0
+abstract class GameEntity() : EntityUnit, BaseProperty() {
 
     /**
      * 当前hp
@@ -35,19 +32,9 @@ abstract class GameEntity : EntityUnit {
     var currentHp: Int = 0
 
     /**
-     * 初始atk
-     */
-    val atk: Int = 0
-
-    /**
      * 当前atk
      */
     var currentAtk: Int = 0
-
-    /**
-     * 初始防御
-     */
-    val def: Int = 0
 
     /**
      * 当前防御
@@ -55,25 +42,14 @@ abstract class GameEntity : EntityUnit {
     var currentDef: Int = 0
 
     /**
-     * 初始暴击概率(%)
-     */
-    val crit: Int = 0
-
-    /**
      * 当前暴击概率(%)
      */
     var currentCrit: Int = 0
 
     /**
-     * 初始暴击伤害(%)
-     */
-    val critDamage: Int = 0
-
-    /**
      * 当前暴击伤害(%)
      */
     var currentCritDamage: Int = 0
-
 
     // 当前应用的所有效果
     val effects = mutableListOf<Effect>()
@@ -91,6 +67,16 @@ abstract class GameEntity : EntityUnit {
 
 /**
  * 玩家实体
+ *
+ * @property name 实体名称
+ * @property description 实体描述
+ * @property speed 初始速度
+ * @property currentSpeed 当前速度
+ * @property atk 攻击力
+ * @property def 防御力
+ * @property hp 生命值
+ * @property crit 暴击概率(%)
+ * @property critDamage 暴击伤害(%)
  */
 class Player(
     override val name: String,
@@ -102,10 +88,50 @@ class Player(
     /**
      * 当前速度
      */
-    var currentSpeed: Int
-) : GameEntity() {}
+    var currentSpeed: Int,
+    override val atk: Int,
+    override val def: Int,
+    override val hp: Int,
+    override val crit: Int,
+    override val critDamage: Int
+) : GameEntity() {
+    // 初始化当前属性值
+    init {
+        currentHp = hp
+        currentAtk = atk
+        currentDef = def
+        currentCrit = crit
+        currentCritDamage = critDamage
+        currentSpeed = speed
+    }
+}
 
 /**
  * boss实体
+ *
+ * @property name 实体名称
+ * @property description 实体描述
+ * @property atk 攻击力
+ * @property def 防御力
+ * @property hp 生命值
+ * @property crit 暴击概率(%)
+ * @property critDamage 暴击伤害(%)
  */
-class Boss(override val name: String, override val description: String) : GameEntity()
+class Boss(
+    override val name: String,
+    override val description: String,
+    override val atk: Int,
+    override val def: Int,
+    override val hp: Int,
+    override val crit: Int,
+    override val critDamage: Int
+) : GameEntity() {
+    // 初始化当前属性值
+    init {
+        currentHp = hp
+        currentAtk = atk
+        currentDef = def
+        currentCrit = crit
+        currentCritDamage = critDamage
+    }
+}

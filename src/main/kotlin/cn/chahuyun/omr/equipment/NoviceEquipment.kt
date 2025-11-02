@@ -5,7 +5,7 @@ package cn.chahuyun.omr.equipment
 
 
 import cn.chahuyun.omr.effect.Effect
-import cn.chahuyun.omr.equipment.NoviceEquipment.NOVICE_HELMET
+import cn.chahuyun.omr.equipment.NoviceEquipmentCodes.NOVICE_HELMET
 import cn.chahuyun.omr.game.Property
 import cn.chahuyun.omr.game.PropertyType
 
@@ -16,17 +16,25 @@ object NoviceEquipment {
     //初始化加载
     init {
         val noviceEquipment = NoviceHelmet()
-        EquipmentFactory.register(NOVICE_HELMET, noviceEquipment)
+        EquipmentFactory.register(noviceEquipment)
 
         val noviceRing = NoviceRing()
-        EquipmentFactory.register(noviceRing.code, noviceRing)
+        EquipmentFactory.register(noviceRing)
     }
 
+
+}
+
+object NoviceEquipmentCodes {
     /**
      * 新手头盔
      */
-    const val NOVICE_HELMET = "novice-helmet"
+    const val NOVICE_HELMET = "E-novice-helmet"
 
+    /**
+     * 新手戒指
+     */
+    const val NOVICE_RING = "E-novice-ring"
 }
 
 /**

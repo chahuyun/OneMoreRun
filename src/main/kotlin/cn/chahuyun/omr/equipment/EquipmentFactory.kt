@@ -26,7 +26,8 @@ object EquipmentFactory {
     /**
      * 注册装备原型
      */
-    fun register(code: String, equipment: Equipment) {
+    fun register(equipment: Equipment) {
+        val code = equipment.code
         if (equipmentMap.containsKey(code)) {
             OneMoreRun.logger.warning("$code 已被注册,新注册失败!")
             return
