@@ -2,11 +2,10 @@ package cn.chahuyun.omr.skills
 
 import cn.chahuyun.omr.game.DamageType
 import cn.chahuyun.omr.game.ImpactConfig
+import cn.chahuyun.omr.skills.FireballSkillsCodes.FIREBALL_SKILLS_150
 import kotlin.math.roundToInt
 
 object FireballSkillsRegistrar {
-    const val FIREBALL_SKILLS_150 = "fireball-skills-150"
-
     init {
         val fireballSkills = FireballSkills(
             FIREBALL_SKILLS_150, "火焰术", "发射一枚火球攻击对方",
@@ -16,6 +15,9 @@ object FireballSkillsRegistrar {
     }
 }
 
+object FireballSkillsCodes{
+    const val FIREBALL_SKILLS_150 = "fireball-skills-150"
+}
 
 class FireballSkills(
     code: String,
