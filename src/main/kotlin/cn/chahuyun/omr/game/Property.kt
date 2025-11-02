@@ -78,3 +78,59 @@ data class Property(
 
     }
 }
+
+/**
+ * 基本属性
+ */
+abstract class BaseProperty {
+    /**
+     * 血量
+     */
+    abstract val hp: Int
+
+    /**
+     * 攻击
+     */
+    abstract val atk: Int
+
+    /**
+     * 防御
+     */
+    abstract val def: Int
+
+    /**
+     * 暴击概率:%
+     */
+    abstract val crit: Int
+
+    /**
+     * 爆伤%
+     */
+    abstract val critDamage: Int
+
+    companion object {
+        /**
+         * 创建一个基础属性对象
+         *
+         * @param atk 攻击力属性值
+         * @param def 防御力属性值
+         * @param hp 生命值属性值
+         * @param crit 暴击率属性值，默认为0
+         * @param critDamage 暴击伤害属性值，默认为100
+         * @return 返回一个实现了BaseProperty接口的匿名对象，包含指定的属性值
+         */
+        fun create(
+            hp: Int,
+            atk: Int,
+            def: Int,
+            crit: Int = 0,
+            critDamage: Int = 100
+        ): BaseProperty = object : BaseProperty() {
+            override val hp: Int = hp
+            override val atk: Int = atk
+            override val def: Int = def
+            override val crit: Int = crit
+            override val critDamage: Int = critDamage
+        }
+    }
+}

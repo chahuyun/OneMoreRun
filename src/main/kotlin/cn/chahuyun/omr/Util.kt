@@ -94,3 +94,86 @@ object RandomUtil {
     }
 
 }
+
+/**
+ * 权重随机工具类
+ * 提供基于权重的随机选择功能
+ */
+object WeightedRandomUtil {
+
+    /**
+     * 根据权重Map随机选择一个值
+     *
+     * @param weightMap 权重映射，key为权重，value为对应的选项
+     * @return 随机选中的值
+     * @throws IllegalArgumentException 当权重Map为空或权重总和为0时抛出
+     */
+    fun <T> randomByWeight(weightMap: Map<Int, T>): T {
+        if (weightMap.isEmpty()) {
+            throw IllegalArgumentException("权重Map不能为空")
+        }
+
+        val totalWeight = weightMap.keys.sum()
+        if (totalWeight <= 0) {
+            throw IllegalArgumentException("权重总和必须大于0")
+        }
+
+        var randomPoint = (Math.random() * totalWeight).toInt()
+
+        /*
+         * 根据权重随机选择一个值
+         *
+         * 该函数通过权重映射表进行随机选择，权重越大的选项被选中的概率越高。
+         * 算法原理是将所有权重累加，生成一个随机点，然后按权重依次减去，
+         * 当随机点小于0时，返回对应的值。
+         *
+         * weightMap 权重映射表，键为权重，值为对应的选项值
+         * randomPoint 随机生成的点，范围在0到所有权重之和之间
+         */
+        for ((weight, value) in weightMap) {
+            // 按权重依次减去当前选项的权重值
+            randomPoint -= weight
+            // 当随机点小于0时，说明落在了当前选项的权重区间内，返回该选项的值
+            if (randomPoint < 0) {
+                return value
+            }
+        }
+
+
+        // 理论上不会执行到这里，但为了防止浮点数精度问题，返回最后一个元素
+        return weightMap.values.first()
+    }
+
+    /**
+     * 根据权重列表随机选择一个元素
+     *
+     * @param items 权重项列表
+     * @param weightSelector 权重选择器函数，用于从每个元素中提取权重值
+     * @return 随机选中的元素
+     * @throws IllegalArgumentException 当列表为空或权重总和为0时抛出
+     */
+    fun <T> randomByWeight(items: List<T>, weightSelector: (T) -> Int): T {
+        if (items.isEmpty()) {
+            throw IllegalArgumentException("权重列表不能为空")
+        }
+
+        val totalWeight = items.sumOf(weightSelector)
+        if (totalWeight <= 0) {
+            throw IllegalArgumentException("权重总和必须大于0")
+        }
+
+        var randomPoint = (Math.random() * totalWeight).toInt()
+
+        for (item in items) {
+            val weight = weightSelector(item)
+            randomPoint -= weight
+            if (randomPoint < 0) {
+                return item
+            }
+        }
+
+        // 理论上不会执行到这里，但为了防止浮点数精度问题，返回最后一个元素
+        return items.first()
+    }
+}
+
