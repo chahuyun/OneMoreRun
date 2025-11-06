@@ -112,9 +112,9 @@ abstract class BaseProperty {
         /**
          * 创建一个基础属性对象
          *
+         * @param hp 生命值属性值
          * @param atk 攻击力属性值
          * @param def 防御力属性值
-         * @param hp 生命值属性值
          * @param crit 暴击率属性值，默认为0
          * @param critDamage 暴击伤害属性值，默认为100
          * @return 返回一个实现了BaseProperty接口的匿名对象，包含指定的属性值
