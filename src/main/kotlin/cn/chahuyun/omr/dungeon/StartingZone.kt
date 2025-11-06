@@ -5,7 +5,8 @@ import cn.chahuyun.omr.equipment.CodesEQNovice
 import cn.chahuyun.omr.game.BaseProperty
 import cn.chahuyun.omr.game.BaseProperty.Companion.create
 import cn.chahuyun.omr.game.Loot
-import cn.chahuyun.omr.game.LootEmptyPropCodes
+import cn.chahuyun.omr.game.LootHeap
+import cn.chahuyun.omr.game.buildLootHeapList
 import cn.chahuyun.omr.skills.CodesSFireball
 
 object StartingZoneRegistrar {
@@ -23,31 +24,26 @@ object StartingZoneRegistrar {
             skills = mapOf(
                 3 to listOf(CodesSFireball.FIREBALL_SKILLS_150)
             ),
-            dropProp = mapOf(
-                1 to listOf(
-                    Loot(
-                        weight = 100, lootProp = mapOf(
-                            100 to CodesEQNovice.NOVICE_HELMET
-                        )
-                    )
-                ),
-                2 to listOf(
-                    Loot(
-                        weight = 100, lootProp = mapOf(
-                            100 to CodesEQNovice.NOVICE_HELMET
-                        )
-                    )
-                ),
-                3 to listOf(
-                    Loot(
-                        weight = 100, lootProp = mapOf(
-                            70 to CodesEQNovice.NOVICE_HELMET,
-                            19 to LootEmptyPropCodes.EMPTY_PROP,
-                            11 to CodesEQNovice.NOVICE_RING
-                        )
-                    )
-                ),
+            dropLoot = mapOf(
+                1 to buildLootHeapList {
+                    lootHeap {
+                        equipment(100, CodesEQNovice.NOVICE_HELMET)
+                    }
+                },
+                2 to buildLootHeapList {
+                    lootHeap {
+                        equipment(100, CodesEQNovice.NOVICE_HELMET)
+                    }
+                },
+                3 to buildLootHeapList {
+                    lootHeap {
+                        equipment(70, CodesEQNovice.NOVICE_HELMET)
+                        none(19)
+                        equipment(11, CodesEQNovice.NOVICE_RING)
+                    }
+                }
             ),
+            certainlyLoot = TODO(),
         )
 
         DungeonFactory.register(startingZone1)
@@ -66,27 +62,29 @@ object CodesDStartingZone {
 
 
 /**
- * 起始区域类，代表游戏副本中的起始区域
+ * 起始区域类，表示游戏副本中的起始区域
  *
- * @param code 区域代码，用于唯一标识该区域
- * @param name 区域名称，显示给玩家的区域名字
- * @param bossName 区域Boss名称
- * @param bossDescription 区域Boss描述信息
- * @param bossProperty 区域Boss属性映射，键为难度等级，值为对应的基础属性
- * @param skills 区域技能映射，键为难度等级，值为该等级下的技能列表
- * @param dropProp 区域掉落属性映射，键为难度等级，值为该等级下的掉落物品列表
+ * @param code 区域编码
+ * @param name 区域名称
+ * @param bossName Boss名称
+ * @param bossDescription Boss描述信息
+ * @param bossProperty Boss属性映射，键为难度等级，值为基础属性
+ * @param skills 技能映射，键为难度等级，值为技能列表
+ * @param dropLoot 掉落战利品映射，键为难度等级，值为战利品堆列表
+ * @param certainlyLoot 必然掉落战利品映射，键为难度等级，值为战利品列表
  */
 class StartingZone(
     code: String, name: String, bossName: String,
     bossDescription: String,
     override val bossProperty: Map<Int, BaseProperty>,
     override val skills: Map<Int, List<String>>,
-    override val dropProp: Map<Int, List<Loot>>
+    override val dropLoot: Map<Int, List<LootHeap>>,
+    override val certainlyLoot: Map<Int, List<Loot>>
 ) : Dungeon(
     code,
     name,
     bossName,
     bossDescription
-) {
+)
 
-}
+

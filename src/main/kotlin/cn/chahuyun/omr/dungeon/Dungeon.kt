@@ -2,6 +2,7 @@ package cn.chahuyun.omr.dungeon
 
 import cn.chahuyun.omr.game.BaseProperty
 import cn.chahuyun.omr.game.Loot
+import cn.chahuyun.omr.game.LootHeap
 
 /**
  *  副本，表示游戏副本的基本信息和Boss配置
@@ -45,6 +46,13 @@ abstract class Dungeon(
      * 副本掉落物品
      * @return Map<Int, List<String>> 返回不同等级副本的掉落物品映射
      */
-    abstract val dropProp: Map<Int, List<Loot>>
+    abstract val dropLoot: Map<Int, List<LootHeap>>
+
+    /**
+     * 获取必定掉落的战利品列表
+     *
+     * @return 包含所有必定掉落物品的列表，每个物品都将在战斗或事件结束后无条件获得
+     */
+    abstract val certainlyLoot: Map<Int, List<Loot>>
 
 }
