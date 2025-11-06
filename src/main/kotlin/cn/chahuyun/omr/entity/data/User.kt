@@ -3,12 +3,7 @@
 package cn.chahuyun.omr.entity.data
 
 import cn.chahuyun.hibernateplus.HibernateFactory
-import jakarta.persistence.Column
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
-import jakarta.persistence.Table
+import jakarta.persistence.*
 
 /**
  * 用户信息
@@ -18,6 +13,11 @@ import jakarta.persistence.Table
 class User(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY) val id: Long? = null,
     @Column(nullable = false, unique = true) val uid: Long,
+    var level: Int,
+    /**
+     * 经验值
+     */
+    var experience: Long,
     @Column(nullable = false) var name: String,
     var description: String?,
     /**

@@ -5,9 +5,7 @@ package cn.chahuyun.omr.equipment
 
 
 import cn.chahuyun.omr.effect.Effect
-import cn.chahuyun.omr.game.BaseProp
-import cn.chahuyun.omr.game.Describable
-import cn.chahuyun.omr.game.Property
+import cn.chahuyun.omr.game.*
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
 
@@ -89,7 +87,7 @@ abstract class Equipment(
      * 是否随机属性
      */
     open val random: Boolean = false,
-) : Describable, BaseProp {
+) : Loot(LootKey.EQUIPMENT, code), Describable, BaseProp {
 
     /**
      * 装备类型标识 - 用于序列化鉴别
