@@ -24,5 +24,16 @@ object DungeonFactory {
         return dungeonMap[code] ?: throw DungeonException("$code 未被注册")
     }
 
+    /**
+     * 根据地牢名称查找对应的地牢对象
+     *
+     * @param name 地牢名称
+     * @return 找到的地牢对象，如果未找到则返回null
+     */
+    fun getByName(name: String): Dungeon? {
+        return dungeonMap.values.find { it.name == name }
+    }
+
+
 
 }

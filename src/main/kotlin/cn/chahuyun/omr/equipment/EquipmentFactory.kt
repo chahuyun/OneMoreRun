@@ -6,7 +6,7 @@ package cn.chahuyun.omr.equipment
 import cn.chahuyun.hibernateplus.HibernateFactory
 import cn.chahuyun.omr.EquipmentException
 import cn.chahuyun.omr.OneMoreRun
-import cn.chahuyun.omr.ShortIdGenerator
+import cn.chahuyun.omr.util.ShortIdGenerator
 import cn.chahuyun.omr.effect.Effect
 import cn.chahuyun.omr.entity.data.EquipmentRandomData
 import cn.chahuyun.omr.equipment.EquipmentFactory.take

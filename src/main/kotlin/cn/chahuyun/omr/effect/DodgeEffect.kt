@@ -1,6 +1,6 @@
 package cn.chahuyun.omr.effect
 
-import cn.chahuyun.omr.RandomUtil
+import cn.chahuyun.omr.util.RandomUtil
 import cn.chahuyun.omr.effect.CodesEFDodge.DODGE_EFFECT_10
 import cn.chahuyun.omr.entity.GameEntity
 import cn.chahuyun.omr.game.DamageType

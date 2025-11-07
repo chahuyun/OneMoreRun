@@ -1,6 +1,6 @@
 package cn.chahuyun.omr.game
 
-import cn.chahuyun.omr.WeightedRandomUtil
+import cn.chahuyun.omr.util.WeightedRandomUtil
 import cn.chahuyun.omr.equipment.EquipmentFactory
 import cn.chahuyun.omr.game.LootKey.*
 import kotlinx.serialization.SerialName
