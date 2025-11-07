@@ -3,6 +3,7 @@
 package cn.chahuyun.omr.entity.data
 
 import cn.chahuyun.hibernateplus.HibernateFactory
+import cn.chahuyun.omr.occupation.Occupation
 import jakarta.persistence.*
 
 /**
@@ -40,7 +41,11 @@ class PlayerUser(
     /**
      * 爆伤
      */
-    @Column(name = "crit_damage") var critDamage: Int = 120
+    @Column(name = "crit_damage") var critDamage: Int = 120,
+    /**
+     * 职业
+     */
+    var occupation: Occupation = Occupation.entries.random()
 ) {
 
     /**
