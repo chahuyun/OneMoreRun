@@ -1,6 +1,7 @@
 package cn.chahuyun.omr
 
 import cn.chahuyun.omr.ShortIdGenerator.counter
+import net.mamoe.mirai.event.events.MessageEvent
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -187,3 +188,10 @@ object WeightedRandomUtil {
     }
 }
 
+/**
+ * 发送消息的挂起函数
+ *
+ * @param msg 要发送的消息内容
+ * @return 消息发送的结果
+ */
+suspend fun MessageEvent.sendMsg(msg: String) = this.subject.sendMessage(msg)
