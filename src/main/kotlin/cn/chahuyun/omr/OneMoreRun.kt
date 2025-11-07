@@ -1,5 +1,7 @@
 package cn.chahuyun.omr
 
+import cn.chahuyun.authorize.PermissionServer
+import cn.chahuyun.omr.auth.OMRAuth
 import cn.chahuyun.omr.config.DataConfig
 import cn.chahuyun.omr.plugin.DataManager
 import net.mamoe.mirai.console.plugin.jvm.JvmPluginDescription
@@ -17,6 +19,9 @@ object OneMoreRun : KotlinPlugin(
     override fun onEnable() {
         DataConfig.reload()
         DataManager.init(this)
+
+        OMRAuth.loader()
+        PermissionServer.registerMessageEvent(this, "cn.chahuyun.omr.event")
     }
 
 

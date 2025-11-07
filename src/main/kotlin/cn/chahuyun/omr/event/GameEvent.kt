@@ -1,11 +1,11 @@
 package cn.chahuyun.omr.event
 
 import cn.chahuyun.omr.entity.data.Dungeon
-import cn.chahuyun.omr.entity.data.User
+import cn.chahuyun.omr.entity.data.PlayerUser
 
 interface GameEvent{
 
-    fun onDungeonStart(user:List<User>,dungeon: Dungeon)
+    fun onDungeonStart(user:List<PlayerUser>, dungeon: Dungeon)
 
     fun onTurnStart()
 
