@@ -1,6 +1,6 @@
-package cn.chahuyun.omr
+package cn.chahuyun.omr.util
 
-import cn.chahuyun.omr.ShortIdGenerator.counter
+import cn.chahuyun.omr.util.ShortIdGenerator.counter
 import net.mamoe.mirai.event.events.MessageEvent
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
