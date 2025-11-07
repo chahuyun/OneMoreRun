@@ -5,7 +5,7 @@ package cn.chahuyun.omr.game
 import cn.chahuyun.omr.entity.Boss
 import cn.chahuyun.omr.entity.Player
 import cn.chahuyun.omr.entity.data.Dungeon
-import cn.chahuyun.omr.entity.data.User
+import cn.chahuyun.omr.entity.data.PlayerUser
 
 /**
  * 游戏过程
@@ -13,7 +13,7 @@ import cn.chahuyun.omr.entity.data.User
  * @param dungeon 副本
  */
 class GameProcess(
-    player: List<User>,
+    player: List<PlayerUser>,
     dungeon: Dungeon
 ) {
 
@@ -43,7 +43,7 @@ class GameProcess(
      * ->添加装备效果
      * ->加载被动技能效果
      */
-    fun loadUser(player: List<User>): List<Player> {
+    fun loadUser(player: List<PlayerUser>): List<Player> {
         return emptyList()
     }
 
