@@ -5,7 +5,7 @@ import cn.chahuyun.authorize.MessageAuthorize
 import cn.chahuyun.omr.auth.OMRPerm
 import cn.chahuyun.omr.game.*
 import cn.chahuyun.omr.manager.player
-import cn.chahuyun.omr.sendMsg
+import cn.chahuyun.omr.util.sendMsg
 import net.mamoe.mirai.event.events.GroupMessageEvent
 
 @EventComponent
@@ -29,7 +29,7 @@ class PlayerUserEvent {
             暴击: ${player.ccrit} (${player.crit} + ${player.ecrit})
             爆伤: ${player.ccritDamage} (${player.critDamage} + ${player.ecritDamage})
             速度: ${player.cspeed} (${player.speed} + ${player.espeed})
-            --- 这是个人 ---
+            --- 这是个 ${player.occupation.occ} ---
         """.trimIndent()
         )
     }
