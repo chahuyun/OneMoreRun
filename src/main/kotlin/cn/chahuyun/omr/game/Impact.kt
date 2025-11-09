@@ -8,21 +8,21 @@ import cn.chahuyun.omr.entity.GameEntity
 /**
  * 伤害类型
  */
-enum class DamageType {
+enum class DamageType (val string: String){
     /**
      * 物理
      */
-    PHYSICAL,
+    PHYSICAL("物理"),
 
     /**
      * 魔法
      */
-    MAGIC,
+    MAGIC("魔法"),
 
     /**
      * 真伤
      */
-    PURE
+    PURE("真实")
 }
 
 /**
@@ -32,7 +32,11 @@ data class Impact(
     /**
      * 基础数值
      */
-    val baseValue: Int,
+    val baseValue: Long,
+    /**
+     * 伤害来源类型
+     */
+    val sourceTypeString: String,
     /**
      * 伤害来源
      */
@@ -44,7 +48,7 @@ data class Impact(
     /**
      * 伤害类型
      */
-    var damageType: DamageType,
+    var damageType: DamageType = DamageType.PHYSICAL,
     /**
      * 是否为治疗
      */
@@ -52,7 +56,7 @@ data class Impact(
     /**
      * 最终数值
      */
-    var finalValue: Int = 0
+    var finalValue: Long = 0
 ) {
     init {
         /**

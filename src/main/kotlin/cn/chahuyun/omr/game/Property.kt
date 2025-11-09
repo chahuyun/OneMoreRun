@@ -120,15 +120,15 @@ abstract class BaseProperty {
          * @return 返回一个实现了BaseProperty接口的匿名对象，包含指定的属性值
          */
         fun create(
-            hp: Int,
-            atk: Int,
-            def: Int,
+            hp: Long,
+            atk: Long,
+            def: Long,
             crit: Int = 0,
             critDamage: Int = 100
         ): BaseProperty = object : BaseProperty() {
-            override val hp: Int = hp
-            override val atk: Int = atk
-            override val def: Int = def
+            override val hp: Long = hp
+            override val atk: Long = atk
+            override val def: Long = def
             override val crit: Int = crit
             override val critDamage: Int = critDamage
         }
