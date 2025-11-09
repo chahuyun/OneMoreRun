@@ -53,3 +53,6 @@ bin/
 /.idea/misc.xml
 /.idea/vcs.xml
 /.idea/dictionaries
+/debug-sandbox/
+/debug-sandbox/plugins
+/debug-sandbox/protocols
