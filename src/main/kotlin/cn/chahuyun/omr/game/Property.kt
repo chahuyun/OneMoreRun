@@ -7,12 +7,12 @@ import kotlin.random.Random
 
 @Serializable
 enum class PropertyType {
-    HP, ATK, DEF,
+    HP, ATK, DEF, SPEED,
 
     /**
      * 暴击
      */
-    DAMAGE,
+    CRIT,
 
     /**
      * 爆伤

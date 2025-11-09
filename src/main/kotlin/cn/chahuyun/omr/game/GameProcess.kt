@@ -74,7 +74,7 @@ class GameProcess(
      */
     fun loadUser(player: List<PlayerUser>): List<Player> {
         for (user in player) {
-            user.equipmentColumn
+
         }
 
         return emptyList()

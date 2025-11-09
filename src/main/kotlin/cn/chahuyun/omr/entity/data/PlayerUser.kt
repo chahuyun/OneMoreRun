@@ -99,38 +99,104 @@ data class UserEquipment(
     var ring: String? = null,
 ) {
 
+    /**
+     * 获取头部装备
+     *
+     * @return Equipment? 返回头部装备对象，如果不存在则返回null
+     */
     fun head(): Equipment? {
+        // 使用let函数安全地访问head属性，避免空指针异常
+        // 通过EquipmentFactory.take方法获取装备实例
         return head?.let { EquipmentFactory.take(it) }
     }
 
+
+    /**
+     * 获取胸部装备
+     *
+     * @return 胸部装备对象，如果不存在则返回null
+     */
     fun chest(): Equipment? {
+        // 使用let函数安全地获取装备，避免空指针异常
         return chest?.let { EquipmentFactory.take(it) }
     }
 
+
+    /**
+     * 获取手部装备
+     *
+     * @return Equipment? 返回手部装备对象，如果不存在则返回null
+     */
     fun hands(): Equipment? {
+        // 使用let函数安全地获取装备，避免空指针异常
         return hands?.let { EquipmentFactory.take(it) }
     }
 
+
+    /**
+     * 获取腿部装备
+     *
+     * @return Equipment? 返回腿部装备对象，如果不存在则返回null
+     */
     fun legs(): Equipment? {
+        // 使用let函数安全地获取装备，避免空指针异常
         return legs?.let { EquipmentFactory.take(it) }
     }
 
+
+    /**
+     * 获取脚部装备
+     *
+     * @return Equipment? 脚部装备对象，如果不存在则返回null
+     */
     fun feet(): Equipment? {
+        // 使用let函数安全地访问feet属性，避免空指针异常
+        // 通过EquipmentFactory创建或获取装备实例
         return feet?.let { EquipmentFactory.take(it) }
     }
 
+    /**
+     * 获取武器装备对象
+     *
+     * @return Equipment? 返回武器装备对象，如果weapons为空则返回null
+     */
     fun weapons(): Equipment? {
+        // 使用let函数安全调用EquipmentFactory.take方法创建装备对象
         return weapons?.let { EquipmentFactory.take(it) }
     }
 
+
+    /**
+     * 获取项链装备对象
+     *
+     * @return 项链装备对象，如果当前没有装备项链则返回null
+     */
     fun necklace(): Equipment? {
+        // 使用let函数安全地处理可空的necklace属性，避免空指针异常
         return necklace?.let { EquipmentFactory.take(it) }
     }
 
+
+    /**
+     * 获取戒指装备
+     *
+     * @return Equipment? 返回戒指装备对象，如果戒指不存在则返回null
+     */
     fun ring(): Equipment? {
+        // 使用let函数安全地访问ring属性，避免空指针异常
+        // 如果ring不为null，则通过EquipmentFactory创建并返回装备对象
         return ring?.let { EquipmentFactory.take(it) }
     }
 
+    /**
+     * 获取所有装备列表
+     *
+     * @return 包含所有有效装备的列表，如果某个装备位置为空则不会包含在结果中
+     */
+    fun allEquipment(): List<Equipment> {
+        // 收集所有装备位置的装备，过滤掉空值后返回
+        return listOfNotNull(head(),chest(),hands(),legs(),feet(),weapons(),necklace(),ring())
+    }
 
 }
 

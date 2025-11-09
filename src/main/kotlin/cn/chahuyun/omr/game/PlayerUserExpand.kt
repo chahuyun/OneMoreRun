@@ -3,6 +3,7 @@
 package cn.chahuyun.omr.game
 
 import cn.chahuyun.omr.entity.data.PlayerUser
+import cn.chahuyun.omr.entity.data.PlayerUser.Companion.equipmentColumn
 
 
 /**
@@ -40,7 +41,10 @@ val PlayerUser.upp: String
  * @return 额外攻击力值，默认为0
  */
 val PlayerUser.eatk: Long
-    get() = 0
+    get() = equipmentColumn.allEquipment().sumOf {
+        it.propertyList.filter { at -> at.type == PropertyType.ATK }.sumOf { et -> et.value }
+    }.toLong()
+
 
 /**
  * 计算玩家用户的总攻击力
@@ -57,7 +61,9 @@ val PlayerUser.catk: Long
  * @return 额外防御力值，默认为0
  */
 val PlayerUser.edef: Long
-    get() = 0
+    get() = equipmentColumn.allEquipment().sumOf {
+        it.propertyList.filter { at -> at.type == PropertyType.DEF }.sumOf { et -> et.value }
+    }.toLong()
 
 /**
  * 计算玩家用户的总防御力
@@ -74,7 +80,9 @@ val PlayerUser.cdef: Long
  * @return 额外生命值，默认为0
  */
 val PlayerUser.ehp: Long
-    get() = 0
+    get() = equipmentColumn.allEquipment().sumOf {
+        it.propertyList.filter { at -> at.type == PropertyType.HP }.sumOf { et -> et.value }
+    }.toLong()
 
 /**
  * 计算玩家用户的总生命值
@@ -90,7 +98,9 @@ val PlayerUser.chp: Long
  * @return 返回额外暴击值，默认为0
  */
 val PlayerUser.ecrit: Int
-    get() = 0
+    get() = equipmentColumn.allEquipment().sumOf {
+        it.propertyList.filter { at -> at.type == PropertyType.CRIT }.sumOf { et -> et.value }
+    }
 
 /**
  * 获取玩家的总暴击值
@@ -105,7 +115,9 @@ val PlayerUser.ccrit: Int
  * @return 返回玩家的基础暴击伤害加上暴击伤害加成的总和
  */
 val PlayerUser.ecritDamage: Int
-    get() = 0
+    get() = equipmentColumn.allEquipment().sumOf {
+        it.propertyList.filter { at -> at.type == PropertyType.CRIT_DAMAGE }.sumOf { et -> et.value }
+    }
 
 /**
  * 获取玩家的暴击伤害加成值
@@ -122,7 +134,9 @@ val PlayerUser.ccritDamage: Int
  * @return 额外速度值，默认为0
  */
 val PlayerUser.espeed: Long
-    get() = 0
+    get() = equipmentColumn.allEquipment().sumOf {
+        it.propertyList.filter { at -> at.type == PropertyType.SPEED }.sumOf { et -> et.value }
+    }.toLong()
 
 /**
  * 计算玩家用户的总速度
