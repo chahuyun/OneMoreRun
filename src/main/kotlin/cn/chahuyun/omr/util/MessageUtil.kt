@@ -2,9 +2,27 @@ package cn.chahuyun.omr.util
 
 import cn.chahuyun.authorize.utils.MessageUtilTemplate
 import cn.chahuyun.omr.OneMoreRun
+import net.mamoe.mirai.Bot
+import net.mamoe.mirai.contact.Group
 import net.mamoe.mirai.event.EventChannel
 import net.mamoe.mirai.event.GlobalEventChannel
 import net.mamoe.mirai.event.events.MessageEvent
+import net.mamoe.mirai.message.data.ForwardMessageBuilder
+import net.mamoe.mirai.message.data.PlainText
+
+
+/**
+ * 为转发消息构建器添加一条纯文本消息
+ *
+ * @param bot 机器人实例，用于发送消息
+ * @param msg 要添加的纯文本消息内容
+ * @return 返回当前转发消息构建器实例，支持链式调用
+ */
+fun ForwardMessageBuilder.add(group: Group, msg: String) = this.add(group.bot, PlainText(msg))
+fun ForwardMessageBuilder.add(bot: Bot, msg: String) = this.add(bot, PlainText(msg))
+fun ForwardMessageBuilder.addJoin(group: Group,vararg msg: String) = this.add(group.bot, PlainText(msg.joinToString("\n")))
+fun ForwardMessageBuilder.addJoin(bot: Bot,vararg msg: String) = this.add(bot, PlainText(msg.joinToString("\n")))
+
 
 /**
  * OMRMessageUtil 是一个消息工具对象，继承自 MessageUtilTemplate。
@@ -137,4 +155,5 @@ internal suspend inline fun nextMessageWhere(noinline block: suspend OMRMessageW
         }
     }
 }
+
 
