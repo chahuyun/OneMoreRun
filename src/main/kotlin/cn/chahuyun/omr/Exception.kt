@@ -14,3 +14,8 @@ class EffectException(override val message: String) : RuntimeException()
  * 副本异常
  */
 class DungeonException(override val message: String) : RuntimeException()
+
+/**
+ * 游戏流程异常
+ */
+class GameProcessException(override val message: String) : RuntimeException()
