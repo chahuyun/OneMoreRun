@@ -4,7 +4,7 @@ import cn.chahuyun.omr.entity.GameEntity
 import cn.chahuyun.omr.game.DamageType
 import cn.chahuyun.omr.game.GameProcess
 import cn.chahuyun.omr.game.Impact
-import kotlin.math.roundToInt
+import kotlin.math.roundToLong
 
 //PoisonEffect.kt
 
@@ -40,8 +40,8 @@ class PoisonEffect(
      * 造成伤害或治疗
      */
     override fun applyImpact(entity: GameEntity, process: GameProcess) {
-        val f = (entity.atk * value).roundToInt()
-        val impact = Impact(f, source, listOf(entity), DamageType.PHYSICAL)
+        val f = (entity.atk * value).roundToLong()
+        val impact = Impact(f, "技能 投毒", source, listOf(entity), DamageType.PHYSICAL)
         entity.damageTaken.plus(impact)
         process.record.add("${entity.name} 中毒了...")
     }

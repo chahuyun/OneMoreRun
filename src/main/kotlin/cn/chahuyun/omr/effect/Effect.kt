@@ -33,6 +33,10 @@ enum class EffectType {
 
 /**
  * 效果触发时机
+ * 副本开启时->
+ *  单体回合开始时->
+ *    技能释放时->伤害计算时->
+ * 副本结束时
  */
 enum class Trigger {
     /**
@@ -54,7 +58,7 @@ enum class Trigger {
      * 伤害计算时
      */
     ON_DAMAGE_CALCULATE,
-    //todo 这里是不是应该还有一个时刻,用于给类似中毒效果使用
+
     /**
      * 单体回合结算时
      */
@@ -138,3 +142,11 @@ abstract class Effect(
      */
     open fun merge(entity: GameEntity, effect: Effect) {}
 }
+
+/**
+ * 根据触发器筛选效果列表
+ *
+ * @param trigger 用于筛选的触发器条件
+ * @return 返回所有触发器匹配的效果列表
+ */
+fun List<Effect>.byTrigger(trigger: Trigger): List<Effect> = this.filter { it.trigger == trigger }
