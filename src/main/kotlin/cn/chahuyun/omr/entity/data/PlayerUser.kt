@@ -197,7 +197,7 @@ data class UserEquipment(
      */
     fun allEquipment(): List<Equipment> {
         // 收集所有装备位置的装备，过滤掉空值后返回
-        return listOfNotNull(head(),chest(),hands(),legs(),feet(),weapons(),necklace(),ring())
+        return listOfNotNull(head(), chest(), hands(), legs(), feet(), weapons(), necklace(), ring())
     }
 
 }
@@ -235,8 +235,8 @@ data class UserSkills(
      */
     @Column(name = "passive_skill")
     var passiveSkill: String? = null
-){
-    fun classSkill(): Skills {
-        return classSkill?.let { SkillsFactory.take(classSkill) }
+) {
+    fun classSkill(): Skills? {
+        return classSkill?.let { SkillsFactory.take(it) }
     }
 }

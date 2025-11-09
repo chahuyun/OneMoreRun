@@ -4,6 +4,7 @@ package cn.chahuyun.omr.entity
 import cn.chahuyun.omr.effect.Effect
 import cn.chahuyun.omr.game.BaseProperty
 import cn.chahuyun.omr.game.Impact
+import cn.chahuyun.omr.occupation.Occupation
 import cn.chahuyun.omr.skills.Skills
 
 
@@ -90,6 +91,10 @@ class Player(
     override val name: String,
     override val description: String,
     /**
+     * 职业
+     */
+    val occ: Occupation,
+    /**
      * 初始速度
      */
     val speed: Int,
@@ -113,6 +118,11 @@ class Player(
         currentCritDamage = critDamage
         currentSpeed = speed
     }
+
+    override fun toString(): String {
+        return "Player(name='$name', description='$description', occ=$occ, speed=$currentSpeed, atk=$currentAtk, def=$currentDef, hp=$currentHp/$hp, crit=$currentCrit, critDamage=$currentCritDamage)"
+    }
+
 }
 
 /**
@@ -143,4 +153,10 @@ class Boss(
         currentCrit = crit
         currentCritDamage = critDamage
     }
+
+    override fun toString(): String {
+        return "Boss(name='$name', description='$description', atk=$currentAtk, def=$currentDef, hp=$currentHp/$hp, crit=$currentCrit, critDamage=$currentCritDamage)"
+    }
+
+
 }
