@@ -70,7 +70,7 @@ abstract class Dungeon(
             val property = bossProperty[difficulty] ?: throw GameProcessException("游戏流程异常:该副本没有这个难度!")
             // 根据Boss属性创建并返回Boss对象
             return Boss(
-                name,
+                bossName,
                 bossDescription,
                 property.atk,
                 property.def,
