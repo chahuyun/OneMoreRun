@@ -6,13 +6,14 @@ package cn.chahuyun.omr.equipment
 
 import cn.chahuyun.omr.effect.Effect
 import cn.chahuyun.omr.equipment.CodesEQNovice.NOVICE_HELMET
+import cn.chahuyun.omr.equipment.CodesEQNovice.NOVICE_RING
 import cn.chahuyun.omr.game.Property
 import cn.chahuyun.omr.game.PropertyType
 
 /**
  * 新手装备管理
  */
-object NoviceEquipment {
+object NoviceEquipmentRegistrar {
     //初始化加载
     init {
         val noviceEquipment = NoviceHelmet()
@@ -21,8 +22,6 @@ object NoviceEquipment {
         val noviceRing = NoviceRing()
         EquipmentFactory.register(noviceRing)
     }
-
-
 }
 
 /**
@@ -112,7 +111,7 @@ class NoviceHelmet() : Equipment(
 }
 
 class NoviceRing() : Equipment(
-    "novice-ring", "新手戒指",
+    NOVICE_RING, "新手戒指",
     "一个无光泽的铁戒指",
     EquipmentType.RING,
     random = true

@@ -6,14 +6,16 @@ package cn.chahuyun.omr.equipment
 import cn.chahuyun.hibernateplus.HibernateFactory
 import cn.chahuyun.omr.EquipmentException
 import cn.chahuyun.omr.OneMoreRun
-import cn.chahuyun.omr.util.ShortIdGenerator
 import cn.chahuyun.omr.effect.Effect
 import cn.chahuyun.omr.entity.data.EquipmentRandomData
 import cn.chahuyun.omr.equipment.EquipmentFactory.take
 import cn.chahuyun.omr.game.Property
+import cn.chahuyun.omr.util.ShortIdGenerator
+import net.mamoe.mirai.utils.debug
 import kotlin.reflect.KClass
 
 object EquipmentFactory {
+    private val log = OneMoreRun.logger
 
     private val equipmentMap: MutableMap<String, Equipment> = mutableMapOf()
     private val randomEquipmentMap: MutableMap<String, Equipment> = mutableMapOf()
@@ -29,19 +31,19 @@ object EquipmentFactory {
     fun register(equipment: Equipment) {
         val code = equipment.code
         if (equipmentMap.containsKey(code)) {
-            OneMoreRun.logger.warning("$code 已被注册,新注册失败!")
+            log.warning("$code 已被注册,新注册失败!")
             return
         }
         equipmentMap[code] = equipment
         JsonConfig.registerEquipmentClass(equipment::class)
-        println("注册装备: $code (${equipment::class.simpleName})")
+        log.debug { "注册装备: $code (${equipment::class.simpleName})" }
     }
 
     /**
      * 获取装备原型,需要获取实际装备请使用 [take]
      */
     fun get(code: String): Equipment {
-        return equipmentMap[code] ?: throw EquipmentException("对应code装备未注册!")
+        return equipmentMap[code] ?: throw EquipmentException("对应code: $code 装备未注册!")
     }
 
     /**

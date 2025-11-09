@@ -21,6 +21,8 @@ import kotlin.time.toDuration
 
 @EventComponent
 class GameEvent {
+    private val log = OneMoreRun.logger
+
     val mutex = Mutex()
 
     val groupTeam = mutableMapOf<Group, GameTeam>()
@@ -31,7 +33,7 @@ class GameEvent {
      * @param event 群组消息事件，包含触发创建队伍操作的用户和群组信息
      */
     @MessageAuthorize(
-        ["创建队伍"],
+        ["创建队伍", "开队", "来一把"],
         groupPermissions = [OMRPerm.GAME]
     )
     suspend fun createTeam(event: GroupMessageEvent) {
@@ -39,6 +41,7 @@ class GameEvent {
         // 检查当前群组是否已存在队伍
         if (groupTeam.containsKey(group)) {
             event.sendMsg("当前群已经有一个队伍了!")
+            return
         }
 
         val player = event.player
@@ -52,7 +55,7 @@ class GameEvent {
                 dismissTeam(group)
             }
         }
-        event.sendMsg("{${player.occupation.occ}} ${player.name} 发起了队伍创建!")
+        event.sendMsg("[${player.occupation.occ}]${player.name} Lv.${player.level} 发起了队伍创建!")
     }
 
 
@@ -65,7 +68,7 @@ class GameEvent {
      * @param event 群消息事件对象，用于获取发送者、群组等信息
      */
     @MessageAuthorize(
-        ["加入", "加入队伍"],
+        ["加入", "加入队伍", "进组", "来", "join"],
         groupPermissions = [OMRPerm.GAME]
     )
     suspend fun addTeam(event: GroupMessageEvent) {
@@ -96,7 +99,7 @@ class GameEvent {
                 return
             }
         }
-        event.sendMsg("{${player.occupation.occ}} ${player.name} 加入了队伍")
+        event.sendMsg("[${player.occupation.occ}]${player.name} Lv.${player.level} 加入了队伍")
         val first = users.first()
         // 若队伍未满三人则不进行后续操作
         if (users.size != 3) {
@@ -125,7 +128,7 @@ class GameEvent {
                 }
 
                 // 检查该副本是否存在指定难度
-                if (dungeon.bossProperty.containsKey(dungeonDifficulty)) {
+                if (!dungeon.bossProperty.containsKey(dungeonDifficulty)) {
                     event.sendMsg("${dungeon.name} 没有这个这个难度!")
                     retry()
                 }
@@ -134,7 +137,7 @@ class GameEvent {
                 team.difficulty = dungeonDifficulty
                 team.start()
                 abort()
-            }
+            } else retry()
         }
     }
 

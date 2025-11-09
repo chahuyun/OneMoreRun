@@ -43,7 +43,7 @@ object StartingZoneRegistrar {
                     }
                 }
             ),
-            certainlyLoot = TODO(),
+            certainlyLoot = emptyMap(),
         )
 
         DungeonFactory.register(startingZone1)

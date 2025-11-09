@@ -4,14 +4,14 @@ import cn.chahuyun.hibernateplus.DriveType.MYSQL
 import cn.chahuyun.hibernateplus.HibernatePlusService
 import cn.chahuyun.omr.OneMoreRun
 import cn.chahuyun.omr.config.DataConfig
-import io.github.oshai.kotlinlogging.KotlinLogging
 import net.mamoe.mirai.console.MiraiConsole
 import net.mamoe.mirai.console.plugin.jvm.JvmPlugin
 import net.mamoe.mirai.console.util.ConsoleExperimentalApi
+import net.mamoe.mirai.utils.warning
 
 object DataManager {
 
-    private val log = KotlinLogging.logger { }
+    private val log = OneMoreRun.logger
 
     @OptIn(ConsoleExperimentalApi::class)
     fun init(plugin: JvmPlugin) {
@@ -30,7 +30,7 @@ object DataManager {
             }
 
             else -> {
-                log.warn { "请配置数据库为MYSQL类型!" }
+                log.warning { "请配置数据库为MYSQL类型!" }
                 MiraiConsole.shutdown()
                 return
             }
@@ -42,3 +42,4 @@ object DataManager {
     }
 
 }
+

@@ -47,7 +47,21 @@ class GameProcess(
     /**
      * 游戏开始
      */
-    fun start() {
+    suspend fun start() {
+        val player1 = player[0]
+        val player2 = player[1]
+        val player3 = player[2]
+        group.sendMessage(
+            """
+            [${player1.occupation.occ}]${player1.name} 带领
+                [${player2.occupation.occ}]${player2.name},
+                [${player3.occupation.occ}]${player3.name},
+            向 ${dungeon.name}($difficulty) 进发!
+            
+            冒险家,出发!
+        """.trimIndent()
+        )
+
 
     }
 
