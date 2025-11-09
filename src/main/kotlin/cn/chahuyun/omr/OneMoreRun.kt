@@ -12,6 +12,7 @@ object OneMoreRun : KotlinPlugin(
         "cn.chahuyun.one-more-run", "1.0.0",
         "再刷亿把"
     ) {
+        dependsOn("cn.chahuyun.HuYanAuthorize", ">=1.2.6", false)
         author("moyuyanli & firefairy198")
     }
 ) {

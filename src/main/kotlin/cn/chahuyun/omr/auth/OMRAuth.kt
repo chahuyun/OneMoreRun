@@ -52,10 +52,10 @@ object OMRAuth {
         if (!userGroup.perms.contains(userPerm)) {
             PermUtil.addPermToPermGroupByPermGroup(userPerm, userGroup)
         }
-        if (userGroup.parentId == null) {
-            userGroup.parentId = baseGroup.id
-        }
-        HibernateFactory.merge(userGroup)
+//        if (userGroup.parentId == null) {
+//            userGroup.parentId = baseGroup.id
+//        }
+//        userGroup.save()
 
         // 配置游戏权限组，确保游戏权限已添加到组中，并设置父级为基础权限组
         val gameGroup = PermUtil.talkPermGroupByName(PERM_OMR_GAME_G)
@@ -63,10 +63,10 @@ object OMRAuth {
         if (!gameGroup.perms.contains(gamePerm)) {
             PermUtil.addPermToPermGroupByPermGroup(gamePerm, gameGroup)
         }
-        if (gameGroup.parentId == null) {
-            gameGroup.parentId = baseGroup.id
-        }
-        HibernateFactory.merge(gameGroup)
+//        if (gameGroup.parentId == null) {
+//            gameGroup.parentId = baseGroup.id
+//        }
+//        gameGroup.save()
     }
 
 
