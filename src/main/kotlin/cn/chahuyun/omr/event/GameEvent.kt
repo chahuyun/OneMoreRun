@@ -21,11 +21,35 @@ import kotlin.time.toDuration
 
 @EventComponent
 class GameEvent {
-    private val log = OneMoreRun.logger
 
-    val mutex = Mutex()
+    companion object {
 
-    val groupTeam = mutableMapOf<Group, GameTeam>()
+        /**
+         * 日志记录器实例，用于记录OneMoreRun相关的日志信息
+         */
+        private val log = OneMoreRun.logger
+
+        /**
+         * 互斥锁，用于保证并发访问时的数据安全性
+         */
+        val mutex = Mutex()
+
+        /**
+         * 组与游戏团队的映射关系表，用于存储Group对象到GameTeam对象的对应关系
+         */
+        val groupTeam = mutableMapOf<Group, GameTeam>()
+
+
+        /**
+         * 清除群队伍
+         */
+        suspend fun clientTeam(group: Group) {
+            mutex.withLock {
+                groupTeam.remove(group)
+            }
+        }
+    }
+
 
     /**
      * 创建队伍函数
@@ -140,6 +164,7 @@ class GameEvent {
             } else retry()
         }
     }
+
 
     /**
      * 解散超时的队伍
