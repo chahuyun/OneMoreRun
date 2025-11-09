@@ -3,11 +3,11 @@ package cn.chahuyun.omr.effect
 
 import cn.chahuyun.omr.EffectException
 import cn.chahuyun.omr.OneMoreRun
-
-
+import net.mamoe.mirai.utils.debug
 
 
 object EffectFactory {
+    private val log = OneMoreRun.logger
     private val effectMap = mutableMapOf<String, Effect>()
 
 
@@ -18,6 +18,7 @@ object EffectFactory {
             return
         }
         effectMap[code] = effect
+        log.debug { "注册效果: $code (${effect::class.simpleName})" }
     }
 
     fun get(code: String): Effect {

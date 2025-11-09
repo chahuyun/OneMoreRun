@@ -1,8 +1,11 @@
 package cn.chahuyun.omr.dungeon
 
 import cn.chahuyun.omr.DungeonException
+import cn.chahuyun.omr.OneMoreRun
+import net.mamoe.mirai.utils.debug
 
 object DungeonFactory {
+    private val log = OneMoreRun.logger
 
     private val dungeonMap = mutableMapOf<String, Dungeon>()
 
@@ -15,6 +18,7 @@ object DungeonFactory {
             throw DungeonException("该副本 $code 已经被注册了")
         }
         dungeonMap[code] = dungeon
+        log.debug { "注册副本: $code (${dungeon::class.simpleName})" }
     }
 
     /**
@@ -33,7 +37,6 @@ object DungeonFactory {
     fun getByName(name: String): Dungeon? {
         return dungeonMap.values.find { it.name == name }
     }
-
 
 
 }
