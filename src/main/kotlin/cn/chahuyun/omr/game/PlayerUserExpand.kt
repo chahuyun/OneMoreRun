@@ -100,20 +100,20 @@ val PlayerUser.ccrit: Int
     get() = (this.crit + this.ecrit)
 
 /**
- * 获取玩家的暴击伤害加成值
- *
- * @return 返回玩家的暴击伤害加成，固定为0
- */
-val PlayerUser.ccritDamage: Int
-    get() = 0
-
-/**
  * 获取玩家的总暴击伤害值
  *
  * @return 返回玩家的基础暴击伤害加上暴击伤害加成的总和
  */
 val PlayerUser.ecritDamage: Int
-    get() = this.critDamage + this.ccritDamage
+    get() = 0
+
+/**
+ * 获取玩家的暴击伤害加成值
+ *
+ * @return 返回玩家的暴击伤害加成，固定为0
+ */
+val PlayerUser.ccritDamage: Int
+    get() = this.critDamage + this.ecritDamage
 
 
 /**

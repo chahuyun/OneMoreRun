@@ -2,19 +2,26 @@
 
 package cn.chahuyun.omr.game
 
+import cn.chahuyun.omr.dungeon.Dungeon
+import cn.chahuyun.omr.dungeon.Dungeon.Companion.toBoss
 import cn.chahuyun.omr.entity.Boss
 import cn.chahuyun.omr.entity.Player
-import cn.chahuyun.omr.entity.data.Dungeon
 import cn.chahuyun.omr.entity.data.PlayerUser
+import net.mamoe.mirai.contact.Group
 
 /**
  * 游戏过程
- * @param player 玩家用户list
- * @param dungeon 副本
+ *
+ * @param group 游戏中的队伍信息
+ * @param player 参与游戏的玩家列表
+ * @param dungeon 游戏进行的地牢对象
+ * @param difficulty 游戏难度等级
  */
 class GameProcess(
-    player: List<PlayerUser>,
-    dungeon: Dungeon
+    val group: Group,
+    val player: List<PlayerUser>,
+    val dungeon: Dungeon,
+    val difficulty: Int,
 ) {
 
     /**
@@ -47,8 +54,14 @@ class GameProcess(
         return emptyList()
     }
 
+    /**
+     * 加载地牢并生成对应的Boss对象
+     *
+     * @param dungeon 需要加载的地牢对象
+     * @return 根据地牢和当前难度生成的Boss对象
+     */
     fun loadDungeon(dungeon: Dungeon): Boss {
-        return Boss("xx", "")
+        return dungeon.toBoss(difficulty)
     }
 
 }

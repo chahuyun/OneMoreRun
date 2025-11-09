@@ -13,11 +13,12 @@ object CodesEmptyLoot {
 
     const val EMPTY_PROP = "N-empty-1"
 
+    private const val EMPTY_STRING = "没有掉落物!"
+
     val map = mutableMapOf(
         EMPTY_PROP to EMPTY_STRING
     )
 
-    private const val EMPTY_STRING = "没有掉落物!"
 
     fun get(code: String): String {
         return map[code] ?: EMPTY_STRING
