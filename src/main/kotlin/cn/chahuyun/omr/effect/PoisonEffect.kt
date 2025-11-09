@@ -40,7 +40,7 @@ class PoisonEffect(
      * 造成伤害或治疗
      */
     override fun applyImpact(entity: GameEntity, process: GameProcess) {
-        val f = entity.atk * value.roundToInt()
+        val f = (entity.atk * value).roundToInt()
         val impact = Impact(f, source, listOf(entity), DamageType.PHYSICAL)
         entity.damageTaken.plus(impact)
         process.record.add("${entity.name} 中毒了...")

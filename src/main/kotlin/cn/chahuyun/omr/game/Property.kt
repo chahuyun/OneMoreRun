@@ -86,17 +86,17 @@ abstract class BaseProperty {
     /**
      * 血量
      */
-    abstract val hp: Int
+    abstract val hp: Long
 
     /**
      * 攻击
      */
-    abstract val atk: Int
+    abstract val atk: Long
 
     /**
      * 防御
      */
-    abstract val def: Int
+    abstract val def: Long
 
     /**
      * 暴击概率:%

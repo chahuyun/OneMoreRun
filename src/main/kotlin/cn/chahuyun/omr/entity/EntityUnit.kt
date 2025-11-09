@@ -4,6 +4,7 @@ package cn.chahuyun.omr.entity
 import cn.chahuyun.omr.effect.Effect
 import cn.chahuyun.omr.game.BaseProperty
 import cn.chahuyun.omr.game.Impact
+import cn.chahuyun.omr.skills.Skills
 
 
 /**
@@ -29,17 +30,17 @@ abstract class GameEntity() : EntityUnit, BaseProperty() {
     /**
      * 当前hp
      */
-    var currentHp: Int = 0
+    var currentHp: Long = 0
 
     /**
      * 当前atk
      */
-    var currentAtk: Int = 0
+    var currentAtk: Long = 0
 
     /**
      * 当前防御
      */
-    var currentDef: Int = 0
+    var currentDef: Long = 0
 
     /**
      * 当前暴击概率(%)
@@ -51,7 +52,14 @@ abstract class GameEntity() : EntityUnit, BaseProperty() {
      */
     var currentCritDamage: Int = 0
 
-    // 当前应用的所有效果
+    /**
+     * 拥有的技能列表
+     */
+    val skills = mutableListOf<Skills>()
+
+    /**
+     *  当前应用的所有效果
+     */
     val effects = mutableListOf<Effect>()
 
     /**
@@ -85,16 +93,17 @@ class Player(
      * 初始速度
      */
     val speed: Int,
-    /**
-     * 当前速度
-     */
-    var currentSpeed: Int,
-    override val atk: Int,
-    override val def: Int,
-    override val hp: Int,
+    override val atk: Long,
+    override val def: Long,
+    override val hp: Long,
     override val crit: Int,
     override val critDamage: Int
 ) : GameEntity() {
+    /**
+     * 当前速度
+     */
+    var currentSpeed: Int
+
     // 初始化当前属性值
     init {
         currentHp = hp
@@ -120,9 +129,9 @@ class Player(
 class Boss(
     override val name: String,
     override val description: String,
-    override val atk: Int,
-    override val def: Int,
-    override val hp: Int,
+    override val atk: Long,
+    override val def: Long,
+    override val hp: Long,
     override val crit: Int,
     override val critDamage: Int
 ) : GameEntity() {

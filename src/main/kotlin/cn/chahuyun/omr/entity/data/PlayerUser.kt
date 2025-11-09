@@ -6,6 +6,8 @@ import cn.chahuyun.hibernateplus.HibernateFactory
 import cn.chahuyun.omr.equipment.Equipment
 import cn.chahuyun.omr.equipment.EquipmentFactory
 import cn.chahuyun.omr.occupation.Occupation
+import cn.chahuyun.omr.skills.Skills
+import cn.chahuyun.omr.skills.SkillsFactory
 import jakarta.persistence.*
 
 /**
@@ -233,4 +235,8 @@ data class UserSkills(
      */
     @Column(name = "passive_skill")
     var passiveSkill: String? = null
-)
+){
+    fun classSkill(): Skills {
+        return classSkill?.let { SkillsFactory.take(classSkill) }
+    }
+}

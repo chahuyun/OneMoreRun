@@ -133,10 +133,10 @@ val PlayerUser.ccritDamage: Int
  *
  * @return 额外速度值，默认为0
  */
-val PlayerUser.espeed: Long
+val PlayerUser.espeed: Int
     get() = equipmentColumn.allEquipment().sumOf {
         it.propertyList.filter { at -> at.type == PropertyType.SPEED }.sumOf { et -> et.value }
-    }.toLong()
+    }
 
 /**
  * 计算玩家用户的总速度
@@ -144,7 +144,7 @@ val PlayerUser.espeed: Long
  *
  * @return 玩家用户的总速度
  */
-val PlayerUser.cspeed: Long
+val PlayerUser.cspeed: Int
     get() = this.speed + this.espeed
 
 
