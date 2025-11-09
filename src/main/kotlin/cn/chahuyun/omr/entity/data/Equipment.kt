@@ -27,6 +27,7 @@ data class EquipmentRandomData(
     /**
      * 对应的效果
      */
+    @Transient
     val effects: List<Effect> = emptyList(),
     /**
      * 对应的属性

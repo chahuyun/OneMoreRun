@@ -13,13 +13,13 @@ import jakarta.persistence.*
 @Table(name = "omr_user")
 class PlayerUser(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY) val id: Long? = null,
-    @Column(nullable = false, unique = true) val uid: Long,
+    @Column(nullable = false, unique = true) val uid: Long? = null,
     var level: Int = 1,
     /**
      * 经验值
      */
     var exp: Long = 0,
-    @Column(nullable = false) var name: String,
+    @Column(nullable = false) var name: String? = null,
     var description: String? = "",
     /**
      * 称号id
@@ -82,7 +82,7 @@ class PlayerUser(
 @Table(name = "omr_user_equipment")
 data class UserEquipment(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY) val id: Long? = null,
-    @Column(nullable = false) val uid: Long?,
+    @Column(nullable = false) val uid: Long? = null,
     var head: String? = null,
     var chest: String? = null,
     var hands: String? = null,
@@ -101,7 +101,7 @@ data class UserEquipment(
 data class UserSkills(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
-    @Column(nullable = false) val uid: Long?,
+    @Column(nullable = false) val uid: Long? = null,
     /**
      * 职业技能（Class Skills）
      */

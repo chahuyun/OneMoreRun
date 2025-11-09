@@ -1,18 +1,24 @@
 package cn.chahuyun.omr.plugin
 
-import cn.chahuyun.hibernateplus.DriveType.*
+import cn.chahuyun.hibernateplus.DriveType.MYSQL
 import cn.chahuyun.hibernateplus.HibernatePlusService
 import cn.chahuyun.omr.OneMoreRun
 import cn.chahuyun.omr.config.DataConfig
-import net.mamoe.mirai.console.plugin.jvm.JavaPlugin
+import io.github.oshai.kotlinlogging.KotlinLogging
+import net.mamoe.mirai.console.MiraiConsole
 import net.mamoe.mirai.console.plugin.jvm.JvmPlugin
+import net.mamoe.mirai.console.util.ConsoleExperimentalApi
 
 object DataManager {
+
+    private val log = KotlinLogging.logger { }
+
+    @OptIn(ConsoleExperimentalApi::class)
     fun init(plugin: JvmPlugin) {
         val configuration = HibernatePlusService.createConfiguration(plugin::class.java)
 
         configuration.classLoader = plugin::class.java.classLoader
-        configuration.packageName = "cn.chahuyun.omr.entity"
+        configuration.packageName = "cn.chahuyun.omr.entity.data"
 
         val dataType = DataConfig.type
         configuration.driveType = dataType
@@ -23,8 +29,11 @@ object DataManager {
                 configuration.password = DataConfig.password
             }
 
-            H2 -> configuration.address = OneMoreRun.dataFolderPath.resolve("authorize.h2.mv.db").toString()
-            SQLITE -> configuration.address = OneMoreRun.dataFolderPath.resolve("authorize.mv.db").toString()
+            else -> {
+                log.warn { "请配置数据库为MYSQL类型!" }
+                MiraiConsole.shutdown()
+                return
+            }
         }
 
         HibernatePlusService.loadingService(configuration)
