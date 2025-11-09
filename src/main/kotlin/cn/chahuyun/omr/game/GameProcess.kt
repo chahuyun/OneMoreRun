@@ -45,6 +45,13 @@ class GameProcess(
     val record: MutableList<String> = mutableListOf()
 
     /**
+     * 游戏开始
+     */
+    fun start() {
+
+    }
+
+    /**
      * 加载用户->创建玩家实体
      * ->添加装备属性
      * ->添加装备效果
@@ -63,5 +70,4 @@ class GameProcess(
     fun loadDungeon(dungeon: Dungeon): Boss {
         return dungeon.toBoss(difficulty)
     }
-
 }

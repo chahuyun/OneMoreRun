@@ -6,6 +6,7 @@ import cn.chahuyun.omr.OneMoreRun
 import cn.chahuyun.omr.auth.OMRPerm
 import cn.chahuyun.omr.dungeon.DungeonFactory
 import cn.chahuyun.omr.game.GameTeam
+import cn.chahuyun.omr.game.start
 import cn.chahuyun.omr.manager.player
 import cn.chahuyun.omr.util.nextMessageWhere
 import cn.chahuyun.omr.util.sendMsg
@@ -76,6 +77,11 @@ class GameEvent {
         val player = event.player
         val team = groupTeam[group]!!
 
+        //游戏已经启动
+        if (team.inBattle) {
+            return
+        }
+
         val users = team.players
         // 处理重复职业类别：如果已有相同职业类型的角色则拒绝加入
         if (users.any { it.occupation.type == player.occupation.type }) {
@@ -124,7 +130,9 @@ class GameEvent {
                     retry()
                 }
 
-                event.sendMsg("测试完成")
+                team.dungeon = dungeon
+                team.difficulty = dungeonDifficulty
+                team.start()
                 abort()
             }
         }
