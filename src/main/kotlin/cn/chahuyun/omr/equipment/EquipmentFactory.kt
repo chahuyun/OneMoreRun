@@ -8,11 +8,11 @@ import cn.chahuyun.omr.EquipmentException
 import cn.chahuyun.omr.OneMoreRun
 import cn.chahuyun.omr.effect.Effect
 import cn.chahuyun.omr.entity.data.EquipmentRandomData
+import cn.chahuyun.omr.equipment.Equipment.Companion.clone
 import cn.chahuyun.omr.equipment.EquipmentFactory.take
 import cn.chahuyun.omr.game.Property
 import cn.chahuyun.omr.util.ShortIdGenerator
 import net.mamoe.mirai.utils.debug
-import kotlin.reflect.KClass
 
 object EquipmentFactory {
     private val log = OneMoreRun.logger
@@ -23,6 +23,18 @@ object EquipmentFactory {
     init {
         // 初始化JSON配置（触发类扫描）
         JsonConfig.jsonFormat
+    }
+
+    fun loader() {
+        val list = HibernateFactory.selectList(EquipmentRandomData::class.java)
+        for (data in list) {
+            try {
+                randomEquipmentMap[data.metaCode] = deserialize(data.toMetadata())
+            } catch (e: Exception) {
+                log.error("反序列化装备错误:${data.metaCode}", e)
+                continue
+            }
+        }
     }
 
     /**
@@ -55,9 +67,8 @@ object EquipmentFactory {
         }
 
         val equipment = get(code)
-
         return if (equipment.random) {
-            val clone = equipment.clone<Equipment>()
+            val clone = equipment.clone()
             val finalCode = "$code-${ShortIdGenerator.generateShortId()}-R"
             clone.propertyList
             clone.effects
@@ -90,33 +101,17 @@ object EquipmentFactory {
         //从注册表获取基础装备
         val base = get(metadata.code)
 
-        val newCode = "${metadata.code}-${ShortIdGenerator.generateShortId()}-R"
-        val newEquipment = base::class.constructors.first().call(
-            newCode,
-            base.name,
-            base.description,
-            base.type,
-            base.suit,
-            base.special,
-            true // random
-        )
-
-        // 3. ✅ 关键：用 Metadata 中的值覆盖属性（通过 internal 方法）
-        newEquipment.setEffects(metadata.effects)
-        newEquipment.setPropertyList(metadata.propertyList)
+        val metaCode = metadata.metaCode
+        val newEquipment = base.clone().apply {
+            // 用 Metadata 中的值覆盖属性（通过 internal 方法）
+            setCode(metaCode)
+            setEffects(metadata.effects)
+            setPropertyList(metadata.propertyList)
+        }
 
         return newEquipment
     }
 
-    /**
-     * 根据类型名称查找装备类
-     */
-    private fun findEquipmentClass(typeName: String): KClass<out Equipment> {
-        // 这里可以优化为缓存查找
-        return Equipment::class.sealedSubclasses
-            .find { it.simpleName == typeName }
-            ?: throw EquipmentException("未知的装备类型: $typeName")
-    }
 
     /**
      * 重新加载序列化配置（用于热重载）

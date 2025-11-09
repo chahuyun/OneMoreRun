@@ -6,6 +6,7 @@ import cn.chahuyun.omr.effect.Effect
 import cn.chahuyun.omr.entity.PropertyListConverter
 import cn.chahuyun.omr.entity.StringListConverter
 import cn.chahuyun.omr.equipment.Equipment
+import cn.chahuyun.omr.equipment.EquipmentMetadata
 import cn.chahuyun.omr.game.Property
 import jakarta.persistence.*
 
@@ -34,7 +35,13 @@ data class EquipmentRandomData(
      */
     @Convert(converter = PropertyListConverter::class)
     val propertyList: List<Property> = emptyList()
-)
+){
+
+    fun toMetadata(): EquipmentMetadata {
+        return EquipmentMetadata(code,metaCode,effects,propertyList)
+    }
+}
+
 
 /**
  * 用户多余装备信息

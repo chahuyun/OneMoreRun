@@ -3,6 +3,8 @@
 package cn.chahuyun.omr.entity.data
 
 import cn.chahuyun.hibernateplus.HibernateFactory
+import cn.chahuyun.omr.equipment.Equipment
+import cn.chahuyun.omr.equipment.EquipmentFactory
 import cn.chahuyun.omr.occupation.Occupation
 import jakarta.persistence.*
 
@@ -48,31 +50,35 @@ class PlayerUser(
     var occupation: Occupation = Occupation.entries.random()
 ) {
 
-    /**
-     * 用户装备栏
-     */
-    val PlayerUser.equipmentColumn: UserEquipment
-        get() = equipmentId?.let { id ->
-            HibernateFactory.selectOne(UserEquipment::class.java, id)
-        } ?: run {
-            HibernateFactory.merge(UserEquipment(uid = uid)).also { newEquipment ->
-                this.equipmentId = newEquipment.id
-                HibernateFactory.merge(this)
+    companion object {
+        /**
+         * 用户装备栏
+         */
+        val PlayerUser.equipmentColumn: UserEquipment
+            get() = equipmentId?.let { id ->
+                HibernateFactory.selectOne(UserEquipment::class.java, id)
+            } ?: run {
+                HibernateFactory.merge(UserEquipment(uid = uid)).also { newEquipment ->
+                    this.equipmentId = newEquipment.id
+                    HibernateFactory.merge(this)
+                }
             }
-        }
 
-    /**
-     * 用户技能栏
-     */
-    val PlayerUser.skillsColumn: UserSkills
-        get() = skillsId?.let {
-            HibernateFactory.selectOne(UserSkills::class.java, it)
-        } ?: run {
-            HibernateFactory.merge(UserSkills(uid = uid)).also { newSkills ->
-                this.skillsId = newSkills.id
-                HibernateFactory.merge(this)
+        /**
+         * 用户技能栏
+         */
+        val PlayerUser.skillsColumn: UserSkills
+            get() = skillsId?.let {
+                HibernateFactory.selectOne(UserSkills::class.java, it)
+            } ?: run {
+                HibernateFactory.merge(UserSkills(uid = uid)).also { newSkills ->
+                    this.skillsId = newSkills.id
+                    HibernateFactory.merge(this)
+                }
             }
-        }
+    }
+
+
 }
 
 /**
@@ -91,7 +97,42 @@ data class UserEquipment(
     var weapons: String? = null,
     var necklace: String? = null,
     var ring: String? = null,
-)
+) {
+
+    fun head(): Equipment? {
+        return head?.let { EquipmentFactory.take(it) }
+    }
+
+    fun chest(): Equipment? {
+        return chest?.let { EquipmentFactory.take(it) }
+    }
+
+    fun hands(): Equipment? {
+        return hands?.let { EquipmentFactory.take(it) }
+    }
+
+    fun legs(): Equipment? {
+        return legs?.let { EquipmentFactory.take(it) }
+    }
+
+    fun feet(): Equipment? {
+        return feet?.let { EquipmentFactory.take(it) }
+    }
+
+    fun weapons(): Equipment? {
+        return weapons?.let { EquipmentFactory.take(it) }
+    }
+
+    fun necklace(): Equipment? {
+        return necklace?.let { EquipmentFactory.take(it) }
+    }
+
+    fun ring(): Equipment? {
+        return ring?.let { EquipmentFactory.take(it) }
+    }
+
+
+}
 
 /**
  * 用户技能栏

@@ -7,6 +7,7 @@ import cn.chahuyun.omr.dungeon.Dungeon.Companion.toBoss
 import cn.chahuyun.omr.entity.Boss
 import cn.chahuyun.omr.entity.Player
 import cn.chahuyun.omr.entity.data.PlayerUser
+import cn.chahuyun.omr.entity.data.PlayerUser.Companion.equipmentColumn
 import net.mamoe.mirai.contact.Group
 
 /**
@@ -72,6 +73,10 @@ class GameProcess(
      * ->加载被动技能效果
      */
     fun loadUser(player: List<PlayerUser>): List<Player> {
+        for (user in player) {
+            user.equipmentColumn
+        }
+
         return emptyList()
     }
 
