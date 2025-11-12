@@ -12,7 +12,7 @@ import kotlinx.serialization.encodeToString
 /**
  * 装备类型
  */
-enum class EquipmentType {
+enum class EquipmentSlot {
     /**
      * 头
      */
@@ -72,9 +72,9 @@ abstract class Equipment(
      */
     val description: String,
     /**
-     * 装备类型
+     * 装备部位
      */
-    val type: EquipmentType,
+    val slot: EquipmentSlot,
     /**
      * 套装
      */
@@ -150,7 +150,7 @@ abstract class Equipment(
         }
     }
 
-    companion object{
+    companion object {
 
         /**
          * 优雅的克隆方法

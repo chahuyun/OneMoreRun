@@ -85,7 +85,7 @@ class NoviceHelmet() : Equipment(
     //简洁描述
     description = "村好盔",
     //类型
-    type = EquipmentType.HEAD,
+    slot = EquipmentSlot.HEAD,
     //所属套装
     suit = NoviceSuit(),
     //是否是特殊装备,当这个属性为true的时候,在读取装备的时候会尝试获取装备的效果,默认为false
@@ -113,7 +113,7 @@ class NoviceHelmet() : Equipment(
 class NoviceRing() : Equipment(
     NOVICE_RING, "新手戒指",
     "一个无光泽的铁戒指",
-    EquipmentType.RING,
+    EquipmentSlot.RING,
     random = true
 ) {
 
