@@ -49,7 +49,7 @@ class PlayerUser(
     /**
      * 职业
      */
-    var occupation: Occupation = Occupation.entries.random()
+    var occupation: Occupation = Occupation.entries.random(),
 ) {
 
     companion object {
@@ -234,7 +234,7 @@ data class UserSkills(
      * 被动技能（Passive Skill）
      */
     @Column(name = "passive_skill")
-    var passiveSkill: String? = null
+    var passiveSkill: String? = null,
 ) {
     fun classSkill(): Skills? {
         return classSkill?.let { SkillsFactory.take(it) }
