@@ -3,6 +3,7 @@ package cn.chahuyun.omr.skills
 import cn.chahuyun.omr.game.DamageType
 import cn.chahuyun.omr.game.ImpactConfig
 import cn.chahuyun.omr.skills.CodesSFireball.FIREBALL_SKILLS_150
+import cn.chahuyun.omr.skills.CodesSFireball.FIREBALL_SKILLS_BOSS_120
 import kotlin.math.roundToInt
 
 object FireballSkillsRegistrar {
@@ -12,6 +13,13 @@ object FireballSkillsRegistrar {
             SkillsType.CUSTOM, TargetType.BOSS, 2
         )
         SkillsFactory.register(fireballSkills)
+
+        // Boss 版火焰术：面向玩家群体
+        val bossFireball = FireballSkills(
+            FIREBALL_SKILLS_BOSS_120, "火焰术·首领", "首领发射大火球攻击玩家",
+            SkillsType.CUSTOM, TargetType.ALL_PLAYERS, 2
+        ) { selfAtk -> (selfAtk * 1.2f).roundToInt() }
+        SkillsFactory.register(bossFireball)
     }
 }
 
@@ -20,6 +28,7 @@ object FireballSkillsRegistrar {
  */
 object CodesSFireball{
     const val FIREBALL_SKILLS_150 = "fireball-skills-150"
+    const val FIREBALL_SKILLS_BOSS_120 = "fireball-skills-boss-120"
 }
 
 class FireballSkills(
@@ -28,7 +37,11 @@ class FireballSkills(
     description: String,
     skillsType: SkillsType,
     target: TargetType,
-    cooldown: Int
+    cooldown: Int,
+    /**
+     * 伤害系数计算（可定制 Boss/玩家版）
+     */
+    private val calculate: (atk: Long) -> Int = { atk -> (atk * 1.5f).roundToInt() }
 ) :
     Skills(
         code, name, description, skillsType, target, cooldown
@@ -53,8 +66,7 @@ class FireballSkills(
         return listOf(
             ImpactConfig(
                 DamageType.PHYSICAL, calculateBaseValue = { self, _ ->
-                    val f = self.atk * 1.5f
-                    f.roundToInt()
+                    calculate(self.atk)
                 })
         )
     }

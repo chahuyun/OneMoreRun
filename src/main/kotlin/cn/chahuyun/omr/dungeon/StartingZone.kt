@@ -22,7 +22,7 @@ object StartingZoneRegistrar {
                 3 to create(hp = 1000, atk = 25, def = 10, crit = 3, critDamage = 130),
             ),
             skills = mapOf(
-                3 to listOf(CodesSFireball.FIREBALL_SKILLS_150)
+                3 to listOf(CodesSFireball.FIREBALL_SKILLS_BOSS_120)
             ),
             dropLoot = mapOf(
                 1 to buildLootHeapList {
