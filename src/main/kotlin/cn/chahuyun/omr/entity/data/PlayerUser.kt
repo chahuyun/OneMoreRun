@@ -239,4 +239,25 @@ data class UserSkills(
     fun classSkill(): Skills? {
         return classSkill?.let { SkillsFactory.take(it) }
     }
+
+    /**
+     * 主技能
+     */
+    fun primarySkill(): Skills? {
+        return primarySkill?.let { SkillsFactory.take(it) }
+    }
+
+    /**
+     * 副技能
+     */
+    fun secondarySkill(): Skills? {
+        return secondarySkill?.let { SkillsFactory.take(it) }
+    }
+
+    /**
+     * 被动技能
+     */
+    fun passiveSkill(): Skills? {
+        return passiveSkill?.let { SkillsFactory.take(it) }
+    }
 }
