@@ -54,11 +54,12 @@ macOS / Linux：
 4) 队长按提示发送 “副本名称 副本等级”（如 “新手村 1”），战斗开始。
 
 ## 扩展入口
-- 副本：新增 `Dungeon` 子类并注册到 `DungeonFactory`（参考 `StartingZone`）。
-- 装备：继承 `Equipment`，使用序列化注解并在 Registrar 中注册。
-- 技能：继承 `Skills`，实现效果/伤害配置后注册到 `SkillsFactory`。
-- 效果：继承 `Effect`，设定触发时机并注册到 `EffectFactory`。
-详见 `docs/` 中的各类开发指南。
+- 副本：新增 `Dungeon` 子类并注册到 `DungeonFactory`（参考 `StartingZone`）。详见 `docs/副本开发指南.md`。
+- 装备：继承 `Equipment`，使用序列化注解并在 Registrar 中注册。详见 `docs/装备开发指南.md`。
+- 技能：继承 `Skills`，实现效果/伤害配置后注册到 `SkillsFactory`。详见 `docs/技能开发指南.md`。
+- 效果：继承 `Effect`，设定触发时机并注册到 `EffectFactory`。详见 `docs/效果开发指南.md`。
+
+仓库地址：https://github.com/chahuyun/OneMoreRun
 
 ## 版权与贡献
 作者：moyuyanli & firefairy198  
