@@ -6,6 +6,7 @@ import cn.chahuyun.omr.GameProcessException
 import cn.chahuyun.omr.OneMoreRun
 import cn.chahuyun.omr.dungeon.Dungeon
 import cn.chahuyun.omr.dungeon.Dungeon.Companion.toBoss
+import cn.chahuyun.omr.effect.EffectFactory
 import cn.chahuyun.omr.effect.Trigger
 import cn.chahuyun.omr.effect.byTrigger
 import cn.chahuyun.omr.entity.Boss
@@ -16,6 +17,9 @@ import cn.chahuyun.omr.entity.data.PlayerUser.Companion.skillsColumn
 import cn.chahuyun.omr.event.GameEvent
 import cn.chahuyun.omr.game.Contstant.ATTACK_STRING
 import cn.chahuyun.omr.occupation.OccupationType
+import cn.chahuyun.omr.skills.Skills
+import cn.chahuyun.omr.skills.SkillsFactory
+import cn.chahuyun.omr.skills.TargetType
 import cn.chahuyun.omr.util.add
 import cn.chahuyun.omr.util.addJoin
 import net.mamoe.mirai.contact.Group
@@ -93,7 +97,8 @@ class GameProcess(
                 crit = it.ccrit,
                 critDamage = it.ccritDamage,
             ).apply {
-                it.skillsColumn
+                // 加载技能栏中的技能
+                this.skills.addAll(loadSkills(it))
             }
         }
         return playerBaseList
@@ -106,7 +111,10 @@ class GameProcess(
      * @return 根据地牢和当前难度生成的Boss对象
      */
     fun loadDungeon(dungeon: Dungeon): Boss {
-        return dungeon.toBoss(difficulty)
+        val boss = dungeon.toBoss(difficulty)
+        // 加载对应难度的技能
+        dungeon.skills[difficulty]?.map { SkillsFactory.take(it) }?.let { boss.skills.addAll(it) }
+        return boss
     }
 
     /**
@@ -216,7 +224,7 @@ class GameProcess(
             player.damageDealt.add(impact)
         } else {
             //===== 技能释放时 =====
-            TODO("技能不为空")
+            castSkill(player, player.skills.first())
         }
     }
 
@@ -230,7 +238,7 @@ class GameProcess(
             boss.damageDealt.add(impact)
         } else {
             //===== 技能释放时 =====
-            TODO("技能不为空")
+            castSkill(boss, boss.skills.first())
         }
     }
 
@@ -275,6 +283,73 @@ private fun GameProcess.impactSettlement(impactList: List<Impact>) {
             record.add("${source.name} 的 ${impact.sourceTypeString} 对 ${it.name} 造成了 ${impact.finalValue} 的 ${impact.damageType.string} 伤害!")
         }
     }
+}
+
+/**
+ * 施放技能并生成影响/效果
+ */
+private fun GameProcess.castSkill(caster: GameEntity, skill: Skills) {
+    val targets = selectTargets(skill, caster)
+
+    // 处理效果附加
+    skill.getEffectCodes().forEach { code ->
+        val effect = EffectFactory.take(code)
+        targets.forEach { target ->
+            target.effects.add(effect)
+            effect.onApply(target, this)
+        }
+    }
+
+    // 处理伤害/治疗影响
+    skill.getImpactConfigs().forEach { config ->
+        val base = config.calculateBaseValue(caster, targets).toLong()
+        val impact = Impact(base, "技能 ${skill.name}", caster, targets, config.damageType)
+        caster.damageDealt.add(impact)
+    }
+
+    record.add("${caster.name} 释放了技能 ${skill.name}")
+}
+
+/**
+ * 根据技能目标类型选择目标
+ */
+private fun GameProcess.selectTargets(skill: Skills, caster: GameEntity): List<GameEntity> {
+    return when (skill.target) {
+        TargetType.BOSS -> {
+            if (caster is Player) listOf(boss) else listOf(players.find { it.occ.type == OccupationType.TANK } ?: players.random())
+        }
+
+        TargetType.SELF -> listOf(caster)
+
+        TargetType.ALL_PLAYERS -> players
+
+        TargetType.DPS -> players.filter { it.occ.type == OccupationType.DPS }.ifEmpty { listOf(players.random()) }
+
+        TargetType.TANK -> players.filter { it.occ.type == OccupationType.TANK }.ifEmpty { listOf(players.random()) }
+
+        TargetType.ALLY -> if (caster is Player) players.filter { it != caster }.ifEmpty { listOf(caster) } else listOf(players.random())
+
+        TargetType.ALLIES_TWO -> if (caster is Player) players.filter { it != caster }.shuffled().take(2).ifEmpty { listOf(caster) } else players.shuffled().take(2)
+
+        TargetType.INJURED -> players.filter { it.currentHp < it.hp }.ifEmpty { listOf(players.random()) }
+
+        TargetType.LOW_HEALTH -> players.minByOrNull { it.currentHp }?.let { listOf(it) } ?: listOf(players.random())
+
+        TargetType.BUFFED, TargetType.DEBUFFED -> players // 简化处理，暂不区分
+    }
+}
+
+/**
+ * 从玩家数据加载技能列表
+ */
+private fun loadSkills(user: PlayerUser): List<Skills> {
+    val skills = mutableListOf<Skills>()
+    val column = user.skillsColumn
+    column.classSkill()?.let { skills.add(it) }
+    column.primarySkill()?.let { skills.add(it) }
+    column.secondarySkill()?.let { skills.add(it) }
+    column.passiveSkill()?.let { skills.add(it) }
+    return skills
 }
 
 
